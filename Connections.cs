@@ -35,6 +35,22 @@ namespace GRC_Clinical_Genetics_Application
             return updateCommand;
         }
 
+        public SqlDataAdapter getDefaultDatatable(int id)
+        {
+            SqlDataAdapter dataTable = new SqlDataAdapter("SELECT [GRC ID], [Status Name] as 'Status', [Patients].[Last Name] + ', ' + [Patients].[First Name] as 'Patient', [Patients].[Personal Health Number] as 'PHN',  CONVERT(VARCHAR(10), Patients.DOB , 126) as 'Date of Birth', CASE when[IsUrgent] = 1 then 'Yes' else 'No' end as 'Is Urgent?', [Received Date] as 'Date Sent' , [Employees].[First Name] + ' ' + Employees.[Last Name] as 'Sent by' FROM [GRC].[dbo].[Orders], [GRC].[dbo].Patients, [GRC].[dbo].[Orders Status], [GRC].[dbo].employees where [Employee ID] = 30 and [Patient ID] = [GRC].[dbo].Patients.ID and [GRC].[dbo].[Orders].[Status ID] = [GRC].[dbo].[Orders Status].[Status ID] and [Employee ID] = [GRC].[dbo].employees.ID", GRC_Connection);
+            return dataTable;
+        }
+
+        public SqlDataAdapter getCustomDatatable(string GRCnum = "", string status = "", string patientFirstName = "", string patientLastName = "", int PHN = 0, bool isUrgent = false, bool showAll = false)
+        {
+            string cmdString = "SELECT[GRC ID], [Status Name] as 'Status', [Patients].[Last Name] + ', ' + [Patients].[First Name] as 'Patient', [Patients].[Personal Health Number] as 'PHN',  CONVERT(VARCHAR(10), Patients.DOB , 126) as 'Date of Birth', CASE when[IsUrgent] = 1 then 'Yes' else 'No' end as 'Is Urgent?', [Received Date] as 'Date Sent' , [Employees].[First Name] + ' ' + Employees.[Last Name] as 'Sent by' FROM[GRC].[dbo].[Orders], [GRC].[dbo].Patients, [GRC].[dbo].[Orders Status], [GRC].[dbo].employees where[Employee ID] = 30 and[Patient ID] = [GRC].[dbo].Patients.ID and[GRC].[dbo].[Orders].[Status ID] = [GRC].[dbo].[Orders Status].[Status ID] and [Employee ID] = [GRC].[dbo].employees.ID";
+            
+            //if not empty, add the 'and ______ = _______' to the end of the cmd string 
+
+            SqlDataAdapter dataTable = new SqlDataAdapter(cmdString, GRC_Connection);
+            return dataTable;
+        }
+
     }
 }
 
