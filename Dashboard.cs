@@ -77,7 +77,7 @@ namespace GRC_Clinical_Genetics_Application
             defaultData = (GRCNumber == "" && status == "Any" && patientFirstName == "" && patientLastName == "" && PHNTextBox.Text == "" && !isUrgent && !listAll) ? true : false;
            
             DataTable dt = dashboard.UpdateAppTable(defaultData, GRCNumber, status, patientFirstName, patientLastName, personalHealthNumber, isUrgent, listAll);
-
+            ApplicationListTableView.DataSource = dt;
 
         }
     }

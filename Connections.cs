@@ -36,17 +36,46 @@ namespace GRC_Clinical_Genetics_Application
         }
 
         public SqlDataAdapter getDefaultDatatable(int id)
-        {
-            SqlDataAdapter dataTable = new SqlDataAdapter("SELECT [GRC ID], [Status Name] as 'Status', [Patients].[Last Name] + ', ' + [Patients].[First Name] as 'Patient', [Patients].[Personal Health Number] as 'PHN',  CONVERT(VARCHAR(10), Patients.DOB , 126) as 'Date of Birth', CASE when[IsUrgent] = 1 then 'Yes' else 'No' end as 'Is Urgent?', [Received Date] as 'Date Sent' , [Employees].[First Name] + ' ' + Employees.[Last Name] as 'Sent by' FROM [GRC].[dbo].[Orders], [GRC].[dbo].Patients, [GRC].[dbo].[Orders Status], [GRC].[dbo].employees where [Employee ID] = 30 and [Patient ID] = [GRC].[dbo].Patients.ID and [GRC].[dbo].[Orders].[Status ID] = [GRC].[dbo].[Orders Status].[Status ID] and [Employee ID] = [GRC].[dbo].employees.ID", GRC_Connection);
+        {   //CHANGE: change [Employee ID] = 30 to the corresponding log in
+            SqlDataAdapter dataTable = new SqlDataAdapter("SELECT [GRC ID], [Status Name] as 'Status', [Patients].[Last Name] + ', ' + [Patients].[First Name] as 'Patient', [Patients].[Personal Health Number] as 'PHN',  CONVERT(VARCHAR(10), Patients.DOB , 126) as 'Date of Birth', CASE when[IsUrgent] = 1 then 'Yes' else 'No' end as 'Is Urgent?', CASE when Orders.[Paperwork Received Date] IS NULL then 'No' else 'Yes' end as 'Paperwork Received?', [Received Date] as 'Application Submission Date' , [Employees].[First Name] + ' ' + Employees.[Last Name] as 'Submitted by' FROM [GRC].[dbo].[Orders], [GRC].[dbo].Patients, [GRC].[dbo].[Orders Status], [GRC].[dbo].employees where [Employee ID] = 30 and [Patient ID] = [GRC].[dbo].Patients.ID and [GRC].[dbo].[Orders].[Status ID] = [GRC].[dbo].[Orders Status].[Status ID] and [Employee ID] = [GRC].[dbo].employees.ID", GRC_Connection);
             return dataTable;
         }
 
-        public SqlDataAdapter getCustomDatatable(string GRCnum = "", string status = "", string patientFirstName = "", string patientLastName = "", int PHN = 0, bool isUrgent = false, bool showAll = false)
+        public SqlDataAdapter getCustomDatatable(string GRCnum, string status, string patientFirstName, string patientLastName, int PHN, bool isUrgent, bool showAll, int id)
         {
-            string cmdString = "SELECT[GRC ID], [Status Name] as 'Status', [Patients].[Last Name] + ', ' + [Patients].[First Name] as 'Patient', [Patients].[Personal Health Number] as 'PHN',  CONVERT(VARCHAR(10), Patients.DOB , 126) as 'Date of Birth', CASE when[IsUrgent] = 1 then 'Yes' else 'No' end as 'Is Urgent?', [Received Date] as 'Date Sent' , [Employees].[First Name] + ' ' + Employees.[Last Name] as 'Sent by' FROM[GRC].[dbo].[Orders], [GRC].[dbo].Patients, [GRC].[dbo].[Orders Status], [GRC].[dbo].employees where[Employee ID] = 30 and[Patient ID] = [GRC].[dbo].Patients.ID and[GRC].[dbo].[Orders].[Status ID] = [GRC].[dbo].[Orders Status].[Status ID] and [Employee ID] = [GRC].[dbo].employees.ID";
-            
-            //if not empty, add the 'and ______ = _______' to the end of the cmd string 
+            string cmdString = "SELECT[GRC ID], [Status Name] as 'Status', [Patients].[Last Name] + ', ' + [Patients].[First Name] as 'Patient', [Patients].[Personal Health Number] as 'PHN',  CONVERT(VARCHAR(10), Patients.DOB , 126) as 'Date of Birth', CASE when[IsUrgent] = 1 then 'Yes' else 'No' end as 'Is Urgent?', CASE when Orders.[Paperwork Received Date] IS NULL then 'No' else 'Yes' end as 'Paperwork Received?', [Received Date] as 'Application Submission Date' , [Employees].[First Name] + ' ' + Employees.[Last Name] as 'Submitted by' FROM [GRC].[dbo].[Orders], [GRC].[dbo].Patients, [GRC].[dbo].[Orders Status], [GRC].[dbo].employees where [Patient ID] = [GRC].[dbo].Patients.ID and[GRC].[dbo].[Orders].[Status ID] = [GRC].[dbo].[Orders Status].[Status ID] and [Employee ID] = [GRC].[dbo].employees.ID";
 
+            //if not empty, add the 'and ______ = _______' to the end of the cmd string
+            if (GRCnum != "")
+            {
+                cmdString = cmdString + " and [GRC ID] LIKE '%" + GRCnum + "%' ";
+            }
+            if(status != "Any")
+            {
+                cmdString = cmdString + " and [Status Name] LIKE '%" + status + "%' "; 
+            }
+            if(patientFirstName != "")
+            {
+                cmdString = cmdString + " and [Patients].[First Name] LIKE '%" + patientFirstName + "%'";
+            }
+            if (patientLastName != "")
+            {
+                cmdString = cmdString + " and [Patients].[Last Name] LIKE '%" + patientLastName + "%'";
+            }
+            if(PHN != 0)
+            {
+                cmdString = cmdString + " and [Patients].[Personal Health Number] LIKE '%" + PHN + "%'";
+            }
+            if(isUrgent == true)
+            {
+                cmdString = cmdString + " and [isUrgent] = 1";
+            }
+            if(showAll == false)
+            {
+                cmdString = cmdString + " and [Employee ID] = " + id.ToString();
+            }
+
+            Console.WriteLine(cmdString);
             SqlDataAdapter dataTable = new SqlDataAdapter(cmdString, GRC_Connection);
             return dataTable;
         }

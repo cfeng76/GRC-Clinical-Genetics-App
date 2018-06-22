@@ -54,7 +54,7 @@ namespace GRC_Clinical_Genetics_Application
             {
                 //create table with optional search parameters 
                 dashCon.GRC_Connection.Open();
-                SqlDataAdapter adt = dashCon.getCustomDatatable(GRCnum, status, patientFirstName, patientLastName, PHN, isUrgent, showAll);
+                SqlDataAdapter adt = dashCon.getCustomDatatable(GRCnum, status, patientFirstName, patientLastName, PHN, isUrgent, showAll, userID);
                 adt.Fill(data);
                 dashCon.GRC_Connection.Close();
                 return data;
