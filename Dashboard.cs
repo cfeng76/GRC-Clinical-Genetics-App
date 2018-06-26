@@ -14,8 +14,13 @@ namespace GRC_Clinical_Genetics_Application
     public partial class Dashboard : Form
     {
         private int userID;
-        private string status;
         private string GRCNumber;
+        private string status;
+        private string patientFirstName;
+        private string patientLastName;
+        private int personalHealthNumber;
+        private bool isUrgent = false;
+        private bool listAll = false;
         private bool defaultData = true;
 
         DashboardClass dashboard = new DashboardClass();
@@ -29,6 +34,8 @@ namespace GRC_Clinical_Genetics_Application
 
         public void InitializeDataTable()
         {
+            defaultData = true;
+            StatusComboBox.SelectedItem = "Any";
             DataTable dt = dashboard.UpdateAppTable(defaultData);
             ApplicationListTableView.DataSource = dt;
         }
@@ -49,25 +56,6 @@ namespace GRC_Clinical_Genetics_Application
             }
         }
 
-        //placeholder text for first and last name textboxes
-        private void PatientFirstNameTextBox_Click(object sender, EventArgs e)
-        {
-            if (PatientFirstNameTextBox.Text == "First Name")
-            {
-                PatientFirstNameTextBox.Text = "";
-                PatientFirstNameTextBox.ForeColor = Color.Black;
-            }
-        }
-
-        private void PatientLastNameTextBox_Click(object sender, EventArgs e)
-        {
-            if (PatientLastNameTextBox.Text == "Last Name")
-            {
-                PatientLastNameTextBox.Text = "";
-                PatientLastNameTextBox.ForeColor = Color.Black;
-            }
-        }
-
         private void PHNTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -78,7 +66,19 @@ namespace GRC_Clinical_Genetics_Application
 
         private void SearchButton_Click(object sender, EventArgs e)
         {
-            //dashboard.UpdateAppTable();
+            GRCNumber = GRCNumberTextBox.Text;
+            status = StatusComboBox.SelectedItem.ToString();
+            patientFirstName = PatientFirstNameTextBox.Text;
+            patientLastName = PatientLastNameTextBox.Text;
+            personalHealthNumber = (PHNTextBox.Text != "") ? Convert.ToInt32(PHNTextBox.Text) : 0;
+            isUrgent = (UrgentCheckBox.CheckState == CheckState.Checked) ? true : false;
+            listAll = (listAllCheckBox.CheckState == CheckState.Checked) ? true : false;
+
+            defaultData = (GRCNumber == "" && status == "Any" && patientFirstName == "" && patientLastName == "" && PHNTextBox.Text == "" && !isUrgent && !listAll) ? true : false;
+           
+            DataTable dt = dashboard.UpdateAppTable(defaultData, GRCNumber, status, patientFirstName, patientLastName, personalHealthNumber, isUrgent, listAll);
+            ApplicationListTableView.DataSource = dt;
+
         }
     }
 }

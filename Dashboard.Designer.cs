@@ -31,7 +31,9 @@
             System.Windows.Forms.Label label1;
             System.Windows.Forms.Label label2;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Dashboard));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.LogoutButton = new System.Windows.Forms.Button();
             this.AHSLogo = new System.Windows.Forms.PictureBox();
             this.NameLabel = new System.Windows.Forms.Label();
@@ -49,6 +51,12 @@
             this.PHNTextBox = new System.Windows.Forms.TextBox();
             this.UrgentCheckBox = new System.Windows.Forms.CheckBox();
             this.SearchButton = new System.Windows.Forms.Button();
+            this.listAllCheckBox = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.NumOpenAppsLabel = new System.Windows.Forms.Label();
+            this.NumUrgentAppsLabel = new System.Windows.Forms.Label();
+            this.NewResultButton = new System.Windows.Forms.Button();
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.AHSLogo)).BeginInit();
@@ -149,10 +157,10 @@
             this.NewApplicationButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
             this.NewApplicationButton.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.NewApplicationButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.NewApplicationButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewApplicationButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NewApplicationButton.Location = new System.Drawing.Point(427, 99);
             this.NewApplicationButton.Name = "NewApplicationButton";
-            this.NewApplicationButton.Size = new System.Drawing.Size(83, 22);
+            this.NewApplicationButton.Size = new System.Drawing.Size(94, 23);
             this.NewApplicationButton.TabIndex = 11;
             this.NewApplicationButton.Text = "New Application";
             this.NewApplicationButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -160,15 +168,35 @@
             // 
             // ApplicationListTableView
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            this.ApplicationListTableView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            this.ApplicationListTableView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.ApplicationListTableView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.ApplicationListTableView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ApplicationListTableView.BackgroundColor = System.Drawing.Color.AliceBlue;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ApplicationListTableView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.ApplicationListTableView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ApplicationListTableView.DefaultCellStyle = dataGridViewCellStyle3;
             this.ApplicationListTableView.Location = new System.Drawing.Point(12, 183);
             this.ApplicationListTableView.Name = "ApplicationListTableView";
             this.ApplicationListTableView.ReadOnly = true;
-            this.ApplicationListTableView.Size = new System.Drawing.Size(1168, 249);
+            this.ApplicationListTableView.RowHeadersWidth = 60;
+            this.ApplicationListTableView.Size = new System.Drawing.Size(1168, 224);
             this.ApplicationListTableView.TabIndex = 12;
             // 
             // label3
@@ -188,7 +216,7 @@
             this.GRCNumberTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GRCNumberTextBox.Location = new System.Drawing.Point(62, 146);
             this.GRCNumberTextBox.Name = "GRCNumberTextBox";
-            this.GRCNumberTextBox.Size = new System.Drawing.Size(158, 21);
+            this.GRCNumberTextBox.Size = new System.Drawing.Size(139, 21);
             this.GRCNumberTextBox.TabIndex = 14;
             this.GRCNumberTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.GRCNumberTextBox_KeyPress);
             // 
@@ -198,7 +226,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(244, 149);
+            this.label4.Location = new System.Drawing.Point(219, 148);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(45, 16);
             this.label4.TabIndex = 15;
@@ -210,17 +238,17 @@
             this.StatusComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StatusComboBox.FormattingEnabled = true;
             this.StatusComboBox.Items.AddRange(new object[] {
-            "Open",
-            "Reviewed",
-            "Approved",
-            "Notified",
-            "Shipped",
-            "Withdrawn",
+            "Any",
             "Appealed",
-            "Resubmitted"});
-            this.StatusComboBox.Location = new System.Drawing.Point(295, 146);
+            "Approved",
+            "Declined",
+            "Open",
+            "Resubmitted",
+            "Shipped",
+            "Withdraw"});
+            this.StatusComboBox.Location = new System.Drawing.Point(270, 146);
             this.StatusComboBox.Name = "StatusComboBox";
-            this.StatusComboBox.Size = new System.Drawing.Size(121, 23);
+            this.StatusComboBox.Size = new System.Drawing.Size(103, 23);
             this.StatusComboBox.TabIndex = 17;
             // 
             // label5
@@ -229,7 +257,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(436, 149);
+            this.label5.Location = new System.Drawing.Point(390, 149);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(89, 16);
             this.label5.TabIndex = 18;
@@ -238,24 +266,20 @@
             // PatientFirstNameTextBox
             // 
             this.PatientFirstNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PatientFirstNameTextBox.ForeColor = System.Drawing.Color.DarkGray;
-            this.PatientFirstNameTextBox.Location = new System.Drawing.Point(531, 146);
+            this.PatientFirstNameTextBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.PatientFirstNameTextBox.Location = new System.Drawing.Point(485, 146);
             this.PatientFirstNameTextBox.Name = "PatientFirstNameTextBox";
             this.PatientFirstNameTextBox.Size = new System.Drawing.Size(107, 21);
             this.PatientFirstNameTextBox.TabIndex = 19;
-            this.PatientFirstNameTextBox.Text = "First Name";
-            this.PatientFirstNameTextBox.Click += new System.EventHandler(this.PatientFirstNameTextBox_Click);
             // 
             // PatientLastNameTextBox
             // 
             this.PatientLastNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PatientLastNameTextBox.ForeColor = System.Drawing.Color.DarkGray;
-            this.PatientLastNameTextBox.Location = new System.Drawing.Point(644, 146);
+            this.PatientLastNameTextBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.PatientLastNameTextBox.Location = new System.Drawing.Point(598, 146);
             this.PatientLastNameTextBox.Name = "PatientLastNameTextBox";
             this.PatientLastNameTextBox.Size = new System.Drawing.Size(107, 21);
             this.PatientLastNameTextBox.TabIndex = 20;
-            this.PatientLastNameTextBox.Text = "Last Name";
-            this.PatientLastNameTextBox.Click += new System.EventHandler(this.PatientLastNameTextBox_Click);
             // 
             // label6
             // 
@@ -263,7 +287,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(770, 149);
+            this.label6.Location = new System.Drawing.Point(720, 149);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(37, 16);
             this.label6.TabIndex = 21;
@@ -272,9 +296,9 @@
             // PHNTextBox
             // 
             this.PHNTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PHNTextBox.Location = new System.Drawing.Point(813, 146);
+            this.PHNTextBox.Location = new System.Drawing.Point(763, 146);
             this.PHNTextBox.Name = "PHNTextBox";
-            this.PHNTextBox.Size = new System.Drawing.Size(143, 21);
+            this.PHNTextBox.Size = new System.Drawing.Size(133, 21);
             this.PHNTextBox.TabIndex = 22;
             this.PHNTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PHNTextBox_KeyPress);
             // 
@@ -284,7 +308,7 @@
             this.UrgentCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.UrgentCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UrgentCheckBox.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.UrgentCheckBox.Location = new System.Drawing.Point(972, 148);
+            this.UrgentCheckBox.Location = new System.Drawing.Point(902, 147);
             this.UrgentCheckBox.Name = "UrgentCheckBox";
             this.UrgentCheckBox.Size = new System.Drawing.Size(74, 20);
             this.UrgentCheckBox.TabIndex = 24;
@@ -294,13 +318,89 @@
             // SearchButton
             // 
             this.SearchButton.BackColor = System.Drawing.Color.SpringGreen;
-            this.SearchButton.Location = new System.Drawing.Point(1105, 146);
+            this.SearchButton.Location = new System.Drawing.Point(1116, 146);
             this.SearchButton.Name = "SearchButton";
-            this.SearchButton.Size = new System.Drawing.Size(75, 23);
+            this.SearchButton.Size = new System.Drawing.Size(64, 23);
             this.SearchButton.TabIndex = 25;
             this.SearchButton.Text = "Search";
             this.SearchButton.UseVisualStyleBackColor = false;
             this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
+            // 
+            // listAllCheckBox
+            // 
+            this.listAllCheckBox.AutoSize = true;
+            this.listAllCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.listAllCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listAllCheckBox.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.listAllCheckBox.Location = new System.Drawing.Point(978, 147);
+            this.listAllCheckBox.Name = "listAllCheckBox";
+            this.listAllCheckBox.Size = new System.Drawing.Size(119, 20);
+            this.listAllCheckBox.TabIndex = 26;
+            this.listAllCheckBox.Text = "All Applications";
+            this.listAllCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(483, 131);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(51, 12);
+            this.label7.TabIndex = 27;
+            this.label7.Text = "First Name";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(596, 131);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(50, 12);
+            this.label8.TabIndex = 28;
+            this.label8.Text = "Last Name";
+            // 
+            // NumOpenAppsLabel
+            // 
+            this.NumOpenAppsLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.NumOpenAppsLabel.AutoSize = true;
+            this.NumOpenAppsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NumOpenAppsLabel.Location = new System.Drawing.Point(12, 451);
+            this.NumOpenAppsLabel.Name = "NumOpenAppsLabel";
+            this.NumOpenAppsLabel.Size = new System.Drawing.Size(168, 16);
+            this.NumOpenAppsLabel.TabIndex = 29;
+            this.NumOpenAppsLabel.Text = "# of Applications Open:";
+            // 
+            // NumUrgentAppsLabel
+            // 
+            this.NumUrgentAppsLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.NumUrgentAppsLabel.AutoSize = true;
+            this.NumUrgentAppsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NumUrgentAppsLabel.Location = new System.Drawing.Point(203, 451);
+            this.NumUrgentAppsLabel.Name = "NumUrgentAppsLabel";
+            this.NumUrgentAppsLabel.Size = new System.Drawing.Size(181, 16);
+            this.NumUrgentAppsLabel.TabIndex = 32;
+            this.NumUrgentAppsLabel.Text = "# of Urgent Applications: ";
+            // 
+            // NewResultButton
+            // 
+            this.NewResultButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.NewResultButton.AutoSize = true;
+            this.NewResultButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.NewResultButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.NewResultButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.NewResultButton.FlatAppearance.BorderSize = 0;
+            this.NewResultButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.NewResultButton.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.NewResultButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.NewResultButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewResultButton.Location = new System.Drawing.Point(552, 99);
+            this.NewResultButton.Name = "NewResultButton";
+            this.NewResultButton.Size = new System.Drawing.Size(72, 23);
+            this.NewResultButton.TabIndex = 33;
+            this.NewResultButton.Text = "New Result";
+            this.NewResultButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.NewResultButton.UseVisualStyleBackColor = false;
             // 
             // Dashboard
             // 
@@ -309,6 +409,12 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1454, 629);
+            this.Controls.Add(this.NewResultButton);
+            this.Controls.Add(this.NumUrgentAppsLabel);
+            this.Controls.Add(this.NumOpenAppsLabel);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.listAllCheckBox);
             this.Controls.Add(this.SearchButton);
             this.Controls.Add(this.UrgentCheckBox);
             this.Controls.Add(this.PHNTextBox);
@@ -358,5 +464,11 @@
         private System.Windows.Forms.TextBox PHNTextBox;
         private System.Windows.Forms.CheckBox UrgentCheckBox;
         private System.Windows.Forms.Button SearchButton;
+        private System.Windows.Forms.CheckBox listAllCheckBox;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label NumOpenAppsLabel;
+        private System.Windows.Forms.Label NumUrgentAppsLabel;
+        private System.Windows.Forms.Button NewResultButton;
     }
 }

@@ -12,11 +12,13 @@ namespace GRC_Clinical_Genetics_Application
     {
         private string name;
         Connections dashCon = new Connections();
+        private int userID;
 
         public DashboardClass() { }
 
         public string UpdateGreeting(int id)
         {
+            userID = id;
             dashCon.GRC_Connection.Open();
             SqlCommand cmd = dashCon.NameCommand(id);
             SqlDataReader sdr = cmd.ExecuteReader();
@@ -28,20 +30,35 @@ namespace GRC_Clinical_Genetics_Application
             return name;
         }
 
-        public DataTable UpdateAppTable(bool def, string GRCnum = "", string status = "", string patientName = "", int PHN = 0, bool isUrgent = false)
+        public DataTable UpdateAppTable(bool def, string GRCnum = "", string status = "", string patientFirstName = "", string patientLastName = "", int PHN = 0, bool isUrgent = false, bool showAll = false)
         {
-            if (def)
+            DataTable data = new DataTable();
+
+            Console.WriteLine("Default table: " + def);
+            Console.WriteLine("////////////////////////////////////////");
+            Console.WriteLine("GRC#: " + GRCnum);
+            Console.WriteLine("Status: " + status);
+            Console.WriteLine("Name: " + patientFirstName + " " + patientLastName);
+            Console.WriteLine("PHN: " + PHN);
+            Console.WriteLine("isUrgent?: " + isUrgent);
+            Console.WriteLine("list All?: " + showAll);
+
+            if (def)//default table
             {
-                //create default table with no parameters
+                dashCon.GRC_Connection.Open();
+                SqlDataAdapter adapt = dashCon.getDefaultDatatable(userID);
+                adapt.Fill(data);
+                dashCon.GRC_Connection.Close();
+                return data;
             }else
             {
                 //create table with optional search parameters 
+                dashCon.GRC_Connection.Open();
+                SqlDataAdapter adt = dashCon.getCustomDatatable(GRCnum, status, patientFirstName, patientLastName, PHN, isUrgent, showAll, userID);
+                adt.Fill(data);
+                dashCon.GRC_Connection.Close();
+                return data;
             }
-            //default values provided to search criterias
-            
-            DataTable data = new DataTable();
-
-            return data;
         }
 
     }
