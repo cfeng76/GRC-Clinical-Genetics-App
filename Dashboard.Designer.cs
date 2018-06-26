@@ -165,6 +165,7 @@
             this.NewApplicationButton.Text = "New Application";
             this.NewApplicationButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.NewApplicationButton.UseVisualStyleBackColor = false;
+            this.NewApplicationButton.Click += new System.EventHandler(this.NewApplicationButton_Click);
             // 
             // ApplicationListTableView
             // 
@@ -366,9 +367,9 @@
             this.NumOpenAppsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NumOpenAppsLabel.Location = new System.Drawing.Point(12, 451);
             this.NumOpenAppsLabel.Name = "NumOpenAppsLabel";
-            this.NumOpenAppsLabel.Size = new System.Drawing.Size(168, 16);
+            this.NumOpenAppsLabel.Size = new System.Drawing.Size(172, 16);
             this.NumOpenAppsLabel.TabIndex = 29;
-            this.NumOpenAppsLabel.Text = "# of Applications Open:";
+            this.NumOpenAppsLabel.Text = "# of Applications Open: ";
             // 
             // NumUrgentAppsLabel
             // 

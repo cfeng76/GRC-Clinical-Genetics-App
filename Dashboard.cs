@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data;
+
 
 namespace GRC_Clinical_Genetics_Application
 {
@@ -22,6 +22,8 @@ namespace GRC_Clinical_Genetics_Application
         private bool isUrgent = false;
         private bool listAll = false;
         private bool defaultData = true;
+        private int openMetricsID = 1;
+        private int urgentMetricsID = 2;
 
         DashboardClass dashboard = new DashboardClass();
         public Dashboard(int id)
@@ -38,6 +40,8 @@ namespace GRC_Clinical_Genetics_Application
             StatusComboBox.SelectedItem = "Any";
             DataTable dt = dashboard.UpdateAppTable(defaultData);
             ApplicationListTableView.DataSource = dt;
+            NumOpenAppsLabel.Text = NumOpenAppsLabel.Text + dashboard.UpdateMetrics(openMetricsID);
+            NumUrgentAppsLabel.Text = NumUrgentAppsLabel.Text + dashboard.UpdateMetrics(urgentMetricsID);
         }
 
         private void LogoutButton_Click(object sender, EventArgs e)
@@ -79,6 +83,12 @@ namespace GRC_Clinical_Genetics_Application
             DataTable dt = dashboard.UpdateAppTable(defaultData, GRCNumber, status, patientFirstName, patientLastName, personalHealthNumber, isUrgent, listAll);
             ApplicationListTableView.DataSource = dt;
 
+        }
+
+        private void NewApplicationButton_Click(object sender, EventArgs e)
+        {
+            ApplicationForm newApp = new ApplicationForm(this);
+            newApp.Show();
         }
     }
 }

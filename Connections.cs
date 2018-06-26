@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data.Common;
+using System.Configuration;
 
 namespace GRC_Clinical_Genetics_Application
 {
@@ -35,6 +36,30 @@ namespace GRC_Clinical_Genetics_Application
             return updateCommand;
         }
 
+        public SqlCommand MetricsCommand(int userID, int metricsID)
+        {
+            if (metricsID == 1){
+                SqlCommand openCmd = new SqlCommand("SELECT COUNT([Status Name]) FROM [GRC].[dbo].[Orders], [GRC].[dbo].Patients, [GRC].[dbo].[Orders Status], [GRC].[dbo].employees where [Patient ID] = [GRC].[dbo].Patients.ID  and [GRC].[dbo].[Orders].[Status ID] = [GRC].[dbo].[Orders Status].[Status ID] and [Employee ID] = [GRC].[dbo].employees.ID and [Status Name] like '%open%' and [Employee ID] = '" + userID + "' ", GRC_Connection);
+                return openCmd;
+            }else
+            {
+                SqlCommand urgentCmd = new SqlCommand("SELECT COUNT([isUrgent]) FROM [GRC].[dbo].[Orders], [GRC].[dbo].Patients, [GRC].[dbo].[Orders Status], [GRC].[dbo].employees where [Patient ID] = [GRC].[dbo].Patients.ID  and [GRC].[dbo].[Orders].[Status ID] = [GRC].[dbo].[Orders Status].[Status ID] and [Employee ID] = [GRC].[dbo].employees.ID and IsUrgent = 1 and [Employee ID] = '" + userID + "' ", GRC_Connection);
+                return urgentCmd;
+            }
+        }
+
+        public SqlCommand PHNCommand()
+        {
+            SqlCommand phnCmd = new SqlCommand("SELECT [Personal Health Number], [First Name], [Last Name], [ZIP/Postal Code], [DOB] FROM [GRC].[dbo].[Patients]", GRC_Connection);
+            return phnCmd;
+        }
+
+        public SqlCommand DemographicsCommand(string phn)
+        {
+            SqlCommand demCmd = new SqlCommand("SELECT [Personal Health Number], [First Name], [Last Name], [ZIP/Postal Code], [DOB] FROM [GRC].[dbo].[Patients] where [Personal Health Number] = '" + phn + "' ", GRC_Connection);
+            return demCmd;
+        }
+
         public SqlDataAdapter getDefaultDatatable(int id)
         {   //CHANGE: change [Employee ID] = 30 to the corresponding log in
             SqlDataAdapter dataTable = new SqlDataAdapter("SELECT [GRC ID], [Status Name] as 'Status', [Patients].[Last Name] + ', ' + [Patients].[First Name] as 'Patient', [Patients].[Personal Health Number] as 'PHN',  CONVERT(VARCHAR(10), Patients.DOB , 126) as 'Date of Birth', CASE when[IsUrgent] = 1 then 'Yes' else 'No' end as 'Is Urgent?', CASE when Orders.[Paperwork Received Date] IS NULL then 'No' else 'Yes' end as 'Paperwork Received?', [Received Date] as 'Application Submission Date' , [Employees].[First Name] + ' ' + Employees.[Last Name] as 'Submitted by' FROM [GRC].[dbo].[Orders], [GRC].[dbo].Patients, [GRC].[dbo].[Orders Status], [GRC].[dbo].employees where [Employee ID] = 30 and [Patient ID] = [GRC].[dbo].Patients.ID and [GRC].[dbo].[Orders].[Status ID] = [GRC].[dbo].[Orders Status].[Status ID] and [Employee ID] = [GRC].[dbo].employees.ID", GRC_Connection);
@@ -45,7 +70,6 @@ namespace GRC_Clinical_Genetics_Application
         {
             string cmdString = "SELECT[GRC ID], [Status Name] as 'Status', [Patients].[Last Name] + ', ' + [Patients].[First Name] as 'Patient', [Patients].[Personal Health Number] as 'PHN',  CONVERT(VARCHAR(10), Patients.DOB , 126) as 'Date of Birth', CASE when[IsUrgent] = 1 then 'Yes' else 'No' end as 'Is Urgent?', CASE when Orders.[Paperwork Received Date] IS NULL then 'No' else 'Yes' end as 'Paperwork Received?', [Received Date] as 'Application Submission Date' , [Employees].[First Name] + ' ' + Employees.[Last Name] as 'Submitted by' FROM [GRC].[dbo].[Orders], [GRC].[dbo].Patients, [GRC].[dbo].[Orders Status], [GRC].[dbo].employees where [Patient ID] = [GRC].[dbo].Patients.ID and[GRC].[dbo].[Orders].[Status ID] = [GRC].[dbo].[Orders Status].[Status ID] and [Employee ID] = [GRC].[dbo].employees.ID";
 
-            //if not empty, add the 'and ______ = _______' to the end of the cmd string
             if (GRCnum != "")
             {
                 cmdString = cmdString + " and [GRC ID] LIKE '%" + GRCnum + "%' ";
@@ -75,7 +99,7 @@ namespace GRC_Clinical_Genetics_Application
                 cmdString = cmdString + " and [Employee ID] = " + id.ToString();
             }
 
-            Console.WriteLine(cmdString);
+            cmdString = cmdString + " order by [Status Name]";
             SqlDataAdapter dataTable = new SqlDataAdapter(cmdString, GRC_Connection);
             return dataTable;
         }
