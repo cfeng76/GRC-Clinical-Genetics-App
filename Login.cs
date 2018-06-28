@@ -42,7 +42,7 @@ namespace GRC_Clinical_Genetics_Application
                 }
                 else
                 {
-                    MessageBox.Show("Login successfull!");
+                    //MessageBox.Show("Login successfull!");
                     this.Hide();
                     Dashboard db = new Dashboard(newlogin.GetUserID());
                     db.Show();
