@@ -54,9 +54,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.AltClinicalContactComboBox = new System.Windows.Forms.ComboBox();
+            this.PrimaryClinicalContactComboBox = new System.Windows.Forms.ComboBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label13 = new System.Windows.Forms.Label();
             this.UrgentCheckBox = new System.Windows.Forms.CheckBox();
@@ -106,7 +105,6 @@
             this.UrgentExplTextBox = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.AdditionalDetailsTextBox = new System.Windows.Forms.TextBox();
-            this.label23 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.CalgaryMDLCheckBox = new System.Windows.Forms.CheckBox();
             this.UnsureCheckBox = new System.Windows.Forms.CheckBox();
@@ -118,6 +116,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.NewPatientButton = new System.Windows.Forms.Button();
+            this.OrderingPhysicianTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DemographicsBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ClinicianInformationBox)).BeginInit();
@@ -147,7 +146,7 @@
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Location = new System.Drawing.Point(12, 9);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(841, 26);
+            this.pictureBox1.Size = new System.Drawing.Size(840, 26);
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
@@ -159,7 +158,7 @@
             this.DemographicsBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.DemographicsBox.Location = new System.Drawing.Point(12, 41);
             this.DemographicsBox.Name = "DemographicsBox";
-            this.DemographicsBox.Size = new System.Drawing.Size(841, 214);
+            this.DemographicsBox.Size = new System.Drawing.Size(840, 214);
             this.DemographicsBox.TabIndex = 3;
             this.DemographicsBox.TabStop = false;
             // 
@@ -192,6 +191,7 @@
             this.PHNTextBox.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.PHNTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PHNTextBox.Location = new System.Drawing.Point(61, 77);
+            this.PHNTextBox.MaxLength = 10;
             this.PHNTextBox.Name = "PHNTextBox";
             this.PHNTextBox.Size = new System.Drawing.Size(273, 20);
             this.PHNTextBox.TabIndex = 6;
@@ -368,7 +368,7 @@
             this.ClinicianInformationBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ClinicianInformationBox.Location = new System.Drawing.Point(12, 271);
             this.ClinicianInformationBox.Name = "ClinicianInformationBox";
-            this.ClinicianInformationBox.Size = new System.Drawing.Size(841, 123);
+            this.ClinicianInformationBox.Size = new System.Drawing.Size(840, 123);
             this.ClinicianInformationBox.TabIndex = 23;
             this.ClinicianInformationBox.TabStop = false;
             // 
@@ -416,30 +416,23 @@
             this.label12.TabIndex = 29;
             this.label12.Text = "Genetic Counsellor / Clinical Contact (Alternate):";
             // 
-            // comboBox1
+            // AltClinicalContactComboBox
             // 
-            this.comboBox1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(143, 309);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(401, 21);
-            this.comboBox1.TabIndex = 31;
+            this.AltClinicalContactComboBox.FormattingEnabled = true;
+            this.AltClinicalContactComboBox.Location = new System.Drawing.Point(294, 362);
+            this.AltClinicalContactComboBox.MaxDropDownItems = 100;
+            this.AltClinicalContactComboBox.Name = "AltClinicalContactComboBox";
+            this.AltClinicalContactComboBox.Size = new System.Drawing.Size(410, 21);
+            this.AltClinicalContactComboBox.TabIndex = 32;
             // 
-            // comboBox2
+            // PrimaryClinicalContactComboBox
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(294, 362);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(410, 21);
-            this.comboBox2.TabIndex = 32;
-            // 
-            // comboBox3
-            // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(294, 335);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(410, 21);
-            this.comboBox3.TabIndex = 33;
+            this.PrimaryClinicalContactComboBox.FormattingEnabled = true;
+            this.PrimaryClinicalContactComboBox.Location = new System.Drawing.Point(294, 335);
+            this.PrimaryClinicalContactComboBox.MaxDropDownItems = 100;
+            this.PrimaryClinicalContactComboBox.Name = "PrimaryClinicalContactComboBox";
+            this.PrimaryClinicalContactComboBox.Size = new System.Drawing.Size(410, 21);
+            this.PrimaryClinicalContactComboBox.TabIndex = 33;
             // 
             // pictureBox2
             // 
@@ -449,7 +442,7 @@
             this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox2.Location = new System.Drawing.Point(12, 407);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(841, 378);
+            this.pictureBox2.Size = new System.Drawing.Size(840, 378);
             this.pictureBox2.TabIndex = 34;
             this.pictureBox2.TabStop = false;
             // 
@@ -609,9 +602,9 @@
             this.label16.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.Location = new System.Drawing.Point(21, 601);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(215, 15);
+            this.label16.Size = new System.Drawing.Size(217, 15);
             this.label16.TabIndex = 51;
-            this.label16.Text = "Clinical Category (ex. Cardiac, Neuro):";
+            this.label16.Text = "Clinical Specialty (ex. Cardiac, Neuro):";
             // 
             // ClinicalCategoryComboBox
             // 
@@ -619,9 +612,25 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ClinicalCategoryComboBox.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClinicalCategoryComboBox.FormattingEnabled = true;
+            this.ClinicalCategoryComboBox.Items.AddRange(new object[] {
+            "Cardiac",
+            "Connective tissue disorder including bone disorder",
+            "Tumour or overgrowth (incl cancer)",
+            "Metabolic",
+            "Endocrine",
+            "Neurology incl neuromuscular, myopathy, neurology",
+            "Hematology/Immunology",
+            "Mitochondrial",
+            "Ocular",
+            "Pulmonary",
+            "Renal",
+            "Other",
+            "Dysmorphology",
+            "Dermatology",
+            "Vascular"});
             this.ClinicalCategoryComboBox.Location = new System.Drawing.Point(242, 599);
             this.ClinicalCategoryComboBox.Name = "ClinicalCategoryComboBox";
-            this.ClinicalCategoryComboBox.Size = new System.Drawing.Size(602, 21);
+            this.ClinicalCategoryComboBox.Size = new System.Drawing.Size(600, 21);
             this.ClinicalCategoryComboBox.TabIndex = 52;
             // 
             // label17
@@ -686,7 +695,7 @@
             this.PreferredMethodTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PreferredMethodTextBox.Location = new System.Drawing.Point(134, 657);
             this.PreferredMethodTextBox.Name = "PreferredMethodTextBox";
-            this.PreferredMethodTextBox.Size = new System.Drawing.Size(710, 20);
+            this.PreferredMethodTextBox.Size = new System.Drawing.Size(708, 20);
             this.PreferredMethodTextBox.TabIndex = 58;
             // 
             // PreferredLabTextBox
@@ -697,7 +706,7 @@
             this.PreferredLabTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PreferredLabTextBox.Location = new System.Drawing.Point(152, 691);
             this.PreferredLabTextBox.Name = "PreferredLabTextBox";
-            this.PreferredLabTextBox.Size = new System.Drawing.Size(692, 20);
+            this.PreferredLabTextBox.Size = new System.Drawing.Size(690, 20);
             this.PreferredLabTextBox.TabIndex = 59;
             // 
             // SaveButton
@@ -766,7 +775,7 @@
             this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox3.Location = new System.Drawing.Point(12, 801);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(841, 593);
+            this.pictureBox3.Size = new System.Drawing.Size(840, 593);
             this.pictureBox3.TabIndex = 65;
             this.pictureBox3.TabStop = false;
             // 
@@ -803,7 +812,7 @@
             this.FamilyHistoryTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.FamilyHistoryTextBox.Location = new System.Drawing.Point(435, 843);
             this.FamilyHistoryTextBox.Name = "FamilyHistoryTextBox";
-            this.FamilyHistoryTextBox.Size = new System.Drawing.Size(408, 20);
+            this.FamilyHistoryTextBox.Size = new System.Drawing.Size(407, 20);
             this.FamilyHistoryTextBox.TabIndex = 69;
             this.FamilyHistoryTextBox.Visible = false;
             // 
@@ -853,7 +862,7 @@
             this.EthnicityRiskTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.EthnicityRiskTextBox.Location = new System.Drawing.Point(435, 877);
             this.EthnicityRiskTextBox.Name = "EthnicityRiskTextBox";
-            this.EthnicityRiskTextBox.Size = new System.Drawing.Size(408, 20);
+            this.EthnicityRiskTextBox.Size = new System.Drawing.Size(407, 20);
             this.EthnicityRiskTextBox.TabIndex = 73;
             this.EthnicityRiskTextBox.Visible = false;
             // 
@@ -891,7 +900,7 @@
             this.OtherTestingTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.OtherTestingTextBox.Location = new System.Drawing.Point(390, 913);
             this.OtherTestingTextBox.Name = "OtherTestingTextBox";
-            this.OtherTestingTextBox.Size = new System.Drawing.Size(453, 20);
+            this.OtherTestingTextBox.Size = new System.Drawing.Size(452, 20);
             this.OtherTestingTextBox.TabIndex = 76;
             this.OtherTestingTextBox.Visible = false;
             // 
@@ -981,7 +990,7 @@
             this.UrgentExplTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.UrgentExplTextBox.Location = new System.Drawing.Point(290, 452);
             this.UrgentExplTextBox.Name = "UrgentExplTextBox";
-            this.UrgentExplTextBox.Size = new System.Drawing.Size(439, 20);
+            this.UrgentExplTextBox.Size = new System.Drawing.Size(552, 20);
             this.UrgentExplTextBox.TabIndex = 84;
             this.UrgentExplTextBox.Visible = false;
             // 
@@ -1008,17 +1017,6 @@
             this.AdditionalDetailsTextBox.Name = "AdditionalDetailsTextBox";
             this.AdditionalDetailsTextBox.Size = new System.Drawing.Size(818, 174);
             this.AdditionalDetailsTextBox.TabIndex = 86;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.BackColor = System.Drawing.Color.Gainsboro;
-            this.label23.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(588, 812);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(254, 19);
-            this.label23.TabIndex = 87;
-            this.label23.Text = "SHOW THIS PAGE ONLY IF NON PTLL";
             // 
             // label24
             // 
@@ -1153,6 +1151,18 @@
             this.NewPatientButton.UseVisualStyleBackColor = false;
             this.NewPatientButton.Click += new System.EventHandler(this.NewPatientButton_Click);
             // 
+            // OrderingPhysicianTextBox
+            // 
+            this.OrderingPhysicianTextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.OrderingPhysicianTextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.OrderingPhysicianTextBox.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.OrderingPhysicianTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.OrderingPhysicianTextBox.Location = new System.Drawing.Point(139, 309);
+            this.OrderingPhysicianTextBox.Name = "OrderingPhysicianTextBox";
+            this.OrderingPhysicianTextBox.Size = new System.Drawing.Size(417, 20);
+            this.OrderingPhysicianTextBox.TabIndex = 99;
+            this.OrderingPhysicianTextBox.TextChanged += new System.EventHandler(this.OrderingPhysicianTextBox_TextChanged);
+            // 
             // ApplicationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1160,7 +1170,8 @@
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(933, 800);
+            this.ClientSize = new System.Drawing.Size(903, 800);
+            this.Controls.Add(this.OrderingPhysicianTextBox);
             this.Controls.Add(this.NewPatientButton);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -1172,7 +1183,6 @@
             this.Controls.Add(this.UnsureCheckBox);
             this.Controls.Add(this.CalgaryMDLCheckBox);
             this.Controls.Add(this.label24);
-            this.Controls.Add(this.label23);
             this.Controls.Add(this.AdditionalDetailsTextBox);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.UrgentExplTextBox);
@@ -1222,9 +1232,8 @@
             this.Controls.Add(this.UrgentCheckBox);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.comboBox3);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.PrimaryClinicalContactComboBox);
+            this.Controls.Add(this.AltClinicalContactComboBox);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label5);
@@ -1291,9 +1300,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox AltClinicalContactComboBox;
+        private System.Windows.Forms.ComboBox PrimaryClinicalContactComboBox;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.CheckBox UrgentCheckBox;
@@ -1343,7 +1351,6 @@
         private System.Windows.Forms.TextBox UrgentExplTextBox;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox AdditionalDetailsTextBox;
-        private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.CheckBox CalgaryMDLCheckBox;
         private System.Windows.Forms.CheckBox UnsureCheckBox;
@@ -1355,5 +1362,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button NewPatientButton;
+        private System.Windows.Forms.TextBox OrderingPhysicianTextBox;
     }
 }
