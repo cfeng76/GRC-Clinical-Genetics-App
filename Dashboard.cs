@@ -38,8 +38,10 @@ namespace GRC_Clinical_Genetics_Application
         {
             defaultData = true;
             StatusComboBox.SelectedItem = "Any";
+
             DataTable dt = dashboard.UpdateAppTable(defaultData);
             ApplicationListTableView.DataSource = dt;
+
             NumOpenAppsLabel.Text = NumOpenAppsLabel.Text + dashboard.UpdateMetrics(openMetricsID);
             NumUrgentAppsLabel.Text = NumUrgentAppsLabel.Text + dashboard.UpdateMetrics(urgentMetricsID);
         }

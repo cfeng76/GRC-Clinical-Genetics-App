@@ -30,6 +30,18 @@ namespace GRC_Clinical_Genetics_Application
             return cmd;
         }
 
+        internal SqlCommand PhysicianSearchCommand()
+        {
+            SqlCommand physCmd = new SqlCommand("SELECT [Physician Last name], [Physician First Name], [Company], [id] FROM [GRC].[dbo].[Patient Care Provider] where [Clinic Name] IS NOT NULL order by [Physician Last name]", GRC_Connection);
+            return physCmd;
+        }
+
+        internal SqlCommand GetPhysicianIDCommand(string physLastName)
+        {
+            SqlCommand physID = new SqlCommand("SELECT [id] FROM [GRC].[dbo].[Patient Care Provider] where [Physician Last Name] = '" + physLastName + "' ", GRC_Connection);
+            return physID;
+        }
+
         public SqlCommand UpdateCommand(string newPass, string user)
         {
             SqlCommand updateCommand = new SqlCommand("Update [GRC].[dbo].[Employees] SET [password] = '" + newPass + "', [PwdReset] = 0 where [login] = '" + user + "' ", GRC_Connection);
@@ -48,16 +60,33 @@ namespace GRC_Clinical_Genetics_Application
             }
         }
 
-        public SqlCommand PHNCommand()
+        public SqlCommand PatientSearchCommand()
         {
-            SqlCommand phnCmd = new SqlCommand("SELECT [Personal Health Number], [First Name], [Last Name], [ZIP/Postal Code], [DOB] FROM [GRC].[dbo].[Patients]", GRC_Connection);
-            return phnCmd;
+            SqlCommand schCmd = new SqlCommand("SELECT [Personal Health Number], [First Name], [Last Name] FROM [GRC].[dbo].[Patients]", GRC_Connection);
+            return schCmd;
+        }
+
+        public SqlCommand NewPatient(string PHN, string firstName, string lastName, string DOB)
+        {
+            SqlCommand nPat = new SqlCommand("SELECT count(*) FROM [GRC].[dbo].[Patients] where [Personal Health Number] = '" + PHN + "' and [Last Name] = '" + lastName + "' and [DOB] = '" + DOB + "' " , GRC_Connection);
+            return nPat;
+        }
+        public SqlCommand CheckPHN(string firstName, string lastName, string DOB)
+        {
+            SqlCommand checkCmd = new SqlCommand("SELECT [Personal Health Number], [First Name], [Last Name], [DOB] FROM [GRC].[dbo].[Patients] where [First Name] = '" + firstName + "' and [Last Name] = '" + lastName + "' and [DOB] = '" + DOB + "' ", GRC_Connection);
+            return checkCmd;
         }
 
         public SqlCommand DemographicsCommand(string phn)
         {
             SqlCommand demCmd = new SqlCommand("SELECT [Personal Health Number], [First Name], [Last Name], [ZIP/Postal Code], [DOB] FROM [GRC].[dbo].[Patients] where [Personal Health Number] = '" + phn + "' ", GRC_Connection);
             return demCmd;
+        }
+
+        internal SqlDataAdapter GetContactList(int physID)
+        {
+            SqlDataAdapter contactList = new SqlDataAdapter("SELECT [Contact Last name] + ' ' + [Contact First Name] + ' (' + [Contact E-mail Address] + ')' as 'Clinical Contact' FROM [GRC].[dbo].[Patient Care Provider Contacts] where [Contact E-mail Address] is not null and [Contact First Name] is not null and PatientCareProviderID = '" + physID + "' ", GRC_Connection);
+            return contactList;
         }
 
         public SqlDataAdapter getDefaultDatatable(int id)

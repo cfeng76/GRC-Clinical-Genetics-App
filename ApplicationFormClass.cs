@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -14,22 +15,39 @@ namespace GRC_Clinical_Genetics_Application
         private string lastName;
         private string postalCode;
         private string dob;
+        private int physicianID;
+        private string physicianLastName;
         Connections AppCon = new Connections();
         public ApplicationFormClass()
         {
 
         }
 
-        public AutoCompleteStringCollection Search(int col)
+        public AutoCompleteStringCollection Search(int typeOfSearch, int col = 0)
         {
             AutoCompleteStringCollection MyCollection = new AutoCompleteStringCollection();
             AppCon.GRC_Connection.Open();
-            SqlCommand cmd = AppCon.PHNCommand();
-            SqlDataReader sdr = cmd.ExecuteReader();
-            while (sdr.Read())
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader sdr;
+            if (typeOfSearch == 1)
             {
-                MyCollection.Add(sdr[col].ToString());
+                cmd = AppCon.PatientSearchCommand();
+                sdr = cmd.ExecuteReader();
+                while (sdr.Read())
+                {
+                    MyCollection.Add(sdr[col].ToString());
+                }
             }
+            else if(typeOfSearch == 2)
+            {
+                cmd = AppCon.PhysicianSearchCommand();
+                sdr = cmd.ExecuteReader();
+                while (sdr.Read())
+                {
+                    MyCollection.Add(sdr[0].ToString() + ", " + sdr[1].ToString() + " (" + sdr[2].ToString() + ")");
+                }
+            }
+           
             AppCon.GRC_Connection.Close();
             return MyCollection;
         }
@@ -49,10 +67,51 @@ namespace GRC_Clinical_Genetics_Application
             AppCon.GRC_Connection.Close();
         }
 
-        public bool FieldsCorrect(string PHN, bool noPHN, string alternateID, string alternateExplanation, string firstName, string lastName, string postalCode)
+        public bool PatientExists(string PHN, string fName, string lName, string DOB)
+        {
+            bool isPatient = false;
+            AppCon.GRC_Connection.Open();
+            SqlCommand cmd = AppCon.NewPatient(PHN, fName, lName, DOB);
+            SqlDataReader sdr = cmd.ExecuteReader();
+
+            while (sdr.Read())
+            {
+                if (Convert.ToInt32(sdr[0].ToString()) == 1)
+                {
+                    isPatient = true;
+                }else{
+                    isPatient = false;
+                }
+            }
+            AppCon.GRC_Connection.Close();
+            return isPatient;
+        }
+
+        public bool CorrectPHN(string PHN, string fName, string lName, string DOB)
+        {
+            Console.WriteLine(fName + " " + lName);
+            bool pHNIsCorrect = true;
+            AppCon.GRC_Connection.Open();
+            SqlCommand cmd = AppCon.CheckPHN(fName, lName, DOB);
+            SqlDataReader sdr = cmd.ExecuteReader();
+            while (sdr.Read())
+            {
+                if(PHN != sdr[0].ToString() && fName == sdr[1].ToString() && lName == sdr[2].ToString() && DOB == sdr[3].ToString())
+                {
+                    pHNIsCorrect = false;
+                }else
+                {
+                    pHNIsCorrect = true;
+                }
+            }
+            AppCon.GRC_Connection.Close();
+            return pHNIsCorrect;
+        }
+
+        public bool FieldsCorrect(string PHN, bool noPHN, string alternateID, string alternateExplanation, string fName, string lName, string post)
         {
             bool isComplete = false;
-            if ((PHN != "" && !noPHN) ||
+            if ((PHN != "" && PHN.Length > 8 && !noPHN) ||
                (PHN == "" && noPHN && alternateID != "" && alternateExplanation != "")){
                 isComplete = true;
             }
@@ -62,7 +121,7 @@ namespace GRC_Clinical_Genetics_Application
                 return isComplete;
             }
 
-            if (firstName != "" && lastName != ""){
+            if (fName != "" && lName != ""){
                 isComplete = true;
             }
             else{
@@ -71,7 +130,7 @@ namespace GRC_Clinical_Genetics_Application
                 return isComplete;
             }
 
-            if(postalCode != "" && postalCode.Length >= 6){
+            if(post != "" && post.Length >= 6){
                 isComplete = true;
             }else{
                 isComplete = false;
@@ -82,8 +141,7 @@ namespace GRC_Clinical_Genetics_Application
             return isComplete;
         }
 
-        public string GetFirstName()
-        {
+        public string GetFirstName(){
             return firstName;
         }
 
@@ -100,12 +158,37 @@ namespace GRC_Clinical_Genetics_Application
         public DateTime GetDOB(DateTime minDate)
         {
             DateTime date = Convert.ToDateTime(dob);
-            Console.WriteLine(date);
+           
             if(date.Year < minDate.Year)
             {
                 date = minDate;
             }
             return date;
+        }
+
+        public DataTable UpdateClinicalContacts(string orderPhys)
+        {
+            physicianLastName = orderPhys.Split(',')[0];
+            SetPhysID(physicianLastName);
+
+            DataTable list = new DataTable();
+            AppCon.GRC_Connection.Open();
+            SqlDataAdapter adapt = AppCon.GetContactList(physicianID);
+            adapt.Fill(list);
+            AppCon.GRC_Connection.Close();
+            return list;
+        }
+
+        public void SetPhysID(string physLast)
+        {
+            AppCon.GRC_Connection.Open();
+            SqlCommand cmd = AppCon.GetPhysicianIDCommand(physLast);
+            SqlDataReader sdr = cmd.ExecuteReader();
+            while (sdr.Read())
+            {
+                physicianID = Convert.ToInt32(sdr[0].ToString());
+            }
+            AppCon.GRC_Connection.Close();
         }
     }
 }
