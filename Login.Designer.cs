@@ -96,6 +96,7 @@
             this.UsernameTextBox.Name = "UsernameTextBox";
             this.UsernameTextBox.Size = new System.Drawing.Size(218, 20);
             this.UsernameTextBox.TabIndex = 3;
+            this.UsernameTextBox.Text = "christianfeng";
             // 
             // PasswordTextBox
             // 
@@ -107,6 +108,7 @@
             this.PasswordTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.PasswordTextBox.Size = new System.Drawing.Size(218, 20);
             this.PasswordTextBox.TabIndex = 4;
+            this.PasswordTextBox.Text = "1234";
             this.PasswordTextBox.UseSystemPasswordChar = true;
             // 
             // WarningLabel

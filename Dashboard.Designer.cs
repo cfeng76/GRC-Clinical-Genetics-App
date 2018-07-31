@@ -57,6 +57,9 @@
             this.NumOpenAppsLabel = new System.Windows.Forms.Label();
             this.NumUrgentAppsLabel = new System.Windows.Forms.Label();
             this.NewResultButton = new System.Windows.Forms.Button();
+            this.AppStatus = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.ResetButton = new System.Windows.Forms.Button();
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.AHSLogo)).BeginInit();
@@ -96,7 +99,7 @@
             // 
             this.LogoutButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LogoutButton.AutoSize = true;
-            this.LogoutButton.Location = new System.Drawing.Point(1359, 12);
+            this.LogoutButton.Location = new System.Drawing.Point(1316, 12);
             this.LogoutButton.Name = "LogoutButton";
             this.LogoutButton.Size = new System.Drawing.Size(83, 23);
             this.LogoutButton.TabIndex = 0;
@@ -141,7 +144,7 @@
             this.Bar1.InitialImage = null;
             this.Bar1.Location = new System.Drawing.Point(12, 94);
             this.Bar1.Name = "Bar1";
-            this.Bar1.Size = new System.Drawing.Size(1430, 33);
+            this.Bar1.Size = new System.Drawing.Size(1387, 33);
             this.Bar1.TabIndex = 10;
             this.Bar1.TabStop = false;
             // 
@@ -172,8 +175,9 @@
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
             this.ApplicationListTableView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.ApplicationListTableView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.ApplicationListTableView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ApplicationListTableView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ApplicationListTableView.BackgroundColor = System.Drawing.Color.AliceBlue;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -197,27 +201,28 @@
             this.ApplicationListTableView.Name = "ApplicationListTableView";
             this.ApplicationListTableView.ReadOnly = true;
             this.ApplicationListTableView.RowHeadersWidth = 60;
-            this.ApplicationListTableView.Size = new System.Drawing.Size(1168, 224);
+            this.ApplicationListTableView.Size = new System.Drawing.Size(1387, 213);
             this.ApplicationListTableView.TabIndex = 12;
+            this.ApplicationListTableView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ApplicationListTableView_CellDoubleClick);
             // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(9, 149);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(12, 148);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(47, 16);
+            this.label3.Size = new System.Drawing.Size(43, 15);
             this.label3.TabIndex = 13;
             this.label3.Text = "GRC #";
             // 
             // GRCNumberTextBox
             // 
             this.GRCNumberTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GRCNumberTextBox.Location = new System.Drawing.Point(62, 146);
+            this.GRCNumberTextBox.Location = new System.Drawing.Point(61, 145);
             this.GRCNumberTextBox.Name = "GRCNumberTextBox";
-            this.GRCNumberTextBox.Size = new System.Drawing.Size(139, 21);
+            this.GRCNumberTextBox.Size = new System.Drawing.Size(122, 21);
             this.GRCNumberTextBox.TabIndex = 14;
             this.GRCNumberTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.GRCNumberTextBox_KeyPress);
             // 
@@ -226,12 +231,12 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(219, 148);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(378, 148);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(45, 16);
+            this.label4.Size = new System.Drawing.Size(70, 15);
             this.label4.TabIndex = 15;
-            this.label4.Text = "Status";
+            this.label4.Text = "GRC Status";
             // 
             // StatusComboBox
             // 
@@ -247,7 +252,7 @@
             "Resubmitted",
             "Shipped",
             "Withdraw"});
-            this.StatusComboBox.Location = new System.Drawing.Point(270, 146);
+            this.StatusComboBox.Location = new System.Drawing.Point(454, 145);
             this.StatusComboBox.Name = "StatusComboBox";
             this.StatusComboBox.Size = new System.Drawing.Size(103, 23);
             this.StatusComboBox.TabIndex = 17;
@@ -257,10 +262,10 @@
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(390, 149);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(563, 148);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(89, 16);
+            this.label5.Size = new System.Drawing.Size(82, 15);
             this.label5.TabIndex = 18;
             this.label5.Text = "Patient Name";
             // 
@@ -268,7 +273,7 @@
             // 
             this.PatientFirstNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PatientFirstNameTextBox.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.PatientFirstNameTextBox.Location = new System.Drawing.Point(485, 146);
+            this.PatientFirstNameTextBox.Location = new System.Drawing.Point(651, 145);
             this.PatientFirstNameTextBox.Name = "PatientFirstNameTextBox";
             this.PatientFirstNameTextBox.Size = new System.Drawing.Size(107, 21);
             this.PatientFirstNameTextBox.TabIndex = 19;
@@ -277,7 +282,7 @@
             // 
             this.PatientLastNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PatientLastNameTextBox.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.PatientLastNameTextBox.Location = new System.Drawing.Point(598, 146);
+            this.PatientLastNameTextBox.Location = new System.Drawing.Point(764, 145);
             this.PatientLastNameTextBox.Name = "PatientLastNameTextBox";
             this.PatientLastNameTextBox.Size = new System.Drawing.Size(107, 21);
             this.PatientLastNameTextBox.TabIndex = 20;
@@ -287,19 +292,19 @@
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(720, 149);
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(877, 148);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(37, 16);
+            this.label6.Size = new System.Drawing.Size(33, 15);
             this.label6.TabIndex = 21;
             this.label6.Text = "PHN";
             // 
             // PHNTextBox
             // 
             this.PHNTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PHNTextBox.Location = new System.Drawing.Point(763, 146);
+            this.PHNTextBox.Location = new System.Drawing.Point(916, 145);
             this.PHNTextBox.Name = "PHNTextBox";
-            this.PHNTextBox.Size = new System.Drawing.Size(133, 21);
+            this.PHNTextBox.Size = new System.Drawing.Size(122, 21);
             this.PHNTextBox.TabIndex = 22;
             this.PHNTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PHNTextBox_KeyPress);
             // 
@@ -307,11 +312,11 @@
             // 
             this.UrgentCheckBox.AutoSize = true;
             this.UrgentCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.UrgentCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UrgentCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UrgentCheckBox.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.UrgentCheckBox.Location = new System.Drawing.Point(902, 147);
+            this.UrgentCheckBox.Location = new System.Drawing.Point(1045, 147);
             this.UrgentCheckBox.Name = "UrgentCheckBox";
-            this.UrgentCheckBox.Size = new System.Drawing.Size(74, 20);
+            this.UrgentCheckBox.Size = new System.Drawing.Size(70, 19);
             this.UrgentCheckBox.TabIndex = 24;
             this.UrgentCheckBox.Text = "Urgent?";
             this.UrgentCheckBox.UseVisualStyleBackColor = true;
@@ -319,9 +324,10 @@
             // SearchButton
             // 
             this.SearchButton.BackColor = System.Drawing.Color.SpringGreen;
-            this.SearchButton.Location = new System.Drawing.Point(1116, 146);
+            this.SearchButton.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SearchButton.Location = new System.Drawing.Point(1235, 145);
             this.SearchButton.Name = "SearchButton";
-            this.SearchButton.Size = new System.Drawing.Size(64, 23);
+            this.SearchButton.Size = new System.Drawing.Size(80, 23);
             this.SearchButton.TabIndex = 25;
             this.SearchButton.Text = "Search";
             this.SearchButton.UseVisualStyleBackColor = false;
@@ -331,11 +337,11 @@
             // 
             this.listAllCheckBox.AutoSize = true;
             this.listAllCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.listAllCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listAllCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listAllCheckBox.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.listAllCheckBox.Location = new System.Drawing.Point(978, 147);
+            this.listAllCheckBox.Location = new System.Drawing.Point(1121, 147);
             this.listAllCheckBox.Name = "listAllCheckBox";
-            this.listAllCheckBox.Size = new System.Drawing.Size(119, 20);
+            this.listAllCheckBox.Size = new System.Drawing.Size(108, 19);
             this.listAllCheckBox.TabIndex = 26;
             this.listAllCheckBox.Text = "All Applications";
             this.listAllCheckBox.UseVisualStyleBackColor = true;
@@ -344,7 +350,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(483, 131);
+            this.label7.Location = new System.Drawing.Point(650, 130);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(51, 12);
             this.label7.TabIndex = 27;
@@ -354,7 +360,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(596, 131);
+            this.label8.Location = new System.Drawing.Point(763, 130);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(50, 12);
             this.label8.TabIndex = 28;
@@ -365,7 +371,7 @@
             this.NumOpenAppsLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.NumOpenAppsLabel.AutoSize = true;
             this.NumOpenAppsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumOpenAppsLabel.Location = new System.Drawing.Point(12, 451);
+            this.NumOpenAppsLabel.Location = new System.Drawing.Point(12, 407);
             this.NumOpenAppsLabel.Name = "NumOpenAppsLabel";
             this.NumOpenAppsLabel.Size = new System.Drawing.Size(172, 16);
             this.NumOpenAppsLabel.TabIndex = 29;
@@ -376,7 +382,7 @@
             this.NumUrgentAppsLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.NumUrgentAppsLabel.AutoSize = true;
             this.NumUrgentAppsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumUrgentAppsLabel.Location = new System.Drawing.Point(203, 451);
+            this.NumUrgentAppsLabel.Location = new System.Drawing.Point(203, 407);
             this.NumUrgentAppsLabel.Name = "NumUrgentAppsLabel";
             this.NumUrgentAppsLabel.Size = new System.Drawing.Size(181, 16);
             this.NumUrgentAppsLabel.TabIndex = 32;
@@ -403,13 +409,55 @@
             this.NewResultButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.NewResultButton.UseVisualStyleBackColor = false;
             // 
+            // AppStatus
+            // 
+            this.AppStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.AppStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AppStatus.FormattingEnabled = true;
+            this.AppStatus.Items.AddRange(new object[] {
+            "Any",
+            "Saved",
+            "Finalized",
+            "Submitted"});
+            this.AppStatus.Location = new System.Drawing.Point(299, 145);
+            this.AppStatus.Name = "AppStatus";
+            this.AppStatus.Size = new System.Drawing.Size(73, 23);
+            this.AppStatus.TabIndex = 34;
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(189, 148);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(104, 15);
+            this.label9.TabIndex = 35;
+            this.label9.Text = "Application Status";
+            // 
+            // ResetButton
+            // 
+            this.ResetButton.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.ResetButton.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ResetButton.Location = new System.Drawing.Point(1321, 145);
+            this.ResetButton.Name = "ResetButton";
+            this.ResetButton.Size = new System.Drawing.Size(80, 23);
+            this.ResetButton.TabIndex = 36;
+            this.ResetButton.Text = "Reset";
+            this.ResetButton.UseVisualStyleBackColor = false;
+            this.ResetButton.Click += new System.EventHandler(this.ResetButton_Click);
+            // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1454, 629);
+            this.ClientSize = new System.Drawing.Size(1411, 585);
+            this.Controls.Add(this.ResetButton);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.AppStatus);
             this.Controls.Add(this.NewResultButton);
             this.Controls.Add(this.NumUrgentAppsLabel);
             this.Controls.Add(this.NumOpenAppsLabel);
@@ -471,5 +519,8 @@
         private System.Windows.Forms.Label NumOpenAppsLabel;
         private System.Windows.Forms.Label NumUrgentAppsLabel;
         private System.Windows.Forms.Button NewResultButton;
+        private System.Windows.Forms.ComboBox AppStatus;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button ResetButton;
     }
 }

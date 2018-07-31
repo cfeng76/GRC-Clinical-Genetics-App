@@ -59,7 +59,7 @@ namespace GRC_Clinical_Genetics_Application
             return 0;
         }
 
-        public DataTable UpdateAppTable(bool def, string GRCnum = "", string status = "", string patientFirstName = "", string patientLastName = "", int PHN = 0, bool isUrgent = false, bool showAll = false)
+        public DataTable UpdateAppTable(bool def, string GRCnum = "", string status = "", string patientFirstName = "", string patientLastName = "", int PHN = 0, bool isUrgent = false, bool showAll = false, string AppStat = "")
         {
             DataTable data = new DataTable();
             if (def)//default table
@@ -73,7 +73,7 @@ namespace GRC_Clinical_Genetics_Application
             {
                 //create table with optional search parameters 
                 dashCon.GRC_Connection.Open();
-                SqlDataAdapter adt = dashCon.getCustomDatatable(GRCnum, status, patientFirstName, patientLastName, PHN, isUrgent, showAll, userID);
+                SqlDataAdapter adt = dashCon.getCustomDatatable(GRCnum, status, patientFirstName, patientLastName, PHN, isUrgent, showAll, userID, AppStat);
                 adt.Fill(data);
                 dashCon.GRC_Connection.Close();
                 return data;
