@@ -128,6 +128,7 @@ namespace GRC_Clinical_Genetics_Application
                 gender = sdr[5].ToString();
                 patientID = Convert.ToInt32(sdr[6].ToString());
                 medRecNum = sdr[7].ToString();
+                //alt ID
             }
             AppCon.GRC_Connection.Close();
         }
@@ -230,9 +231,9 @@ namespace GRC_Clinical_Genetics_Application
             } else if((testReq == null || testReq == "") && !newTest){
                 MessageBox.Show("Please provide a test request.");
                 return false;
-            } else if(testReq.Contains("familial") && gene == "") {
-                MessageBox.Show("Please specify the gene type");
-                return false;
+            //} else if(testReq.Contains("familial") && gene == "") {
+            //    MessageBox.Show("Please specify the gene type");
+            //    return false;
             } else if (otherLab && otherLabDetail == "") {
                 MessageBox.Show("Please provide other lab details.");
                 return false;
@@ -630,6 +631,7 @@ namespace GRC_Clinical_Genetics_Application
                 postalCode = sdr[3].ToString();
                 dob = sdr[4].ToString();
                 gender = sdr[5].ToString();
+               
             }
             AppCon.GRC_Connection.Close();
 
@@ -749,7 +751,7 @@ namespace GRC_Clinical_Genetics_Application
             SqlDataReader sdr = cmd.ExecuteReader();
             while (sdr.Read())
             {
-                GRC_ID = DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + sdr[0].ToString();
+                GRC_ID = DateTime.Now.Year.ToString() + "-" + DateTime.Now.ToString("MM") + "-" + sdr[0].ToString();
                 GRCNum = Convert.ToInt32(sdr[0]);
             }
             AppCon.GRC_Connection.Close();
@@ -759,7 +761,7 @@ namespace GRC_Clinical_Genetics_Application
             cmd = AppCon.UpdateGRCID(nextGRC);
             cmd.ExecuteNonQuery();
             //create order
-            cmd = AppCon.CreateOrder(GRC_ID, employeeID, labID, physicianID, primaryContactID, patientID, sampleID, checkboxes[0], urgentID, urgent, checkboxes[1], checkboxes[3], checkboxes[4], checkboxes[2], checkboxes[5], otherReasonID, testID, 0);
+            cmd = AppCon.CreateOrder(GRC_ID, employeeID, labID, physicianID, primaryContactID, patientID, sampleID, checkboxes[0], urgentID, urgent, checkboxes[1], checkboxes[3], checkboxes[4], checkboxes[2], checkboxes[5], otherReasonID, testID, 0, currentAppID);
             cmd.ExecuteNonQuery();
             //update app status
             cmd = AppCon.SubmittedAppUpdate(currentAppID, GRC_ID);

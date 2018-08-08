@@ -60,6 +60,8 @@
             this.AppStatus = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.ResetButton = new System.Windows.Forms.Button();
+            this.NumLabel2 = new System.Windows.Forms.Label();
+            this.NumLabel1 = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.AHSLogo)).BeginInit();
@@ -382,7 +384,7 @@
             this.NumUrgentAppsLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.NumUrgentAppsLabel.AutoSize = true;
             this.NumUrgentAppsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumUrgentAppsLabel.Location = new System.Drawing.Point(203, 407);
+            this.NumUrgentAppsLabel.Location = new System.Drawing.Point(217, 407);
             this.NumUrgentAppsLabel.Name = "NumUrgentAppsLabel";
             this.NumUrgentAppsLabel.Size = new System.Drawing.Size(181, 16);
             this.NumUrgentAppsLabel.TabIndex = 32;
@@ -448,6 +450,28 @@
             this.ResetButton.UseVisualStyleBackColor = false;
             this.ResetButton.Click += new System.EventHandler(this.ResetButton_Click);
             // 
+            // NumLabel2
+            // 
+            this.NumLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.NumLabel2.AutoSize = true;
+            this.NumLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NumLabel2.Location = new System.Drawing.Point(395, 407);
+            this.NumLabel2.Name = "NumLabel2";
+            this.NumLabel2.Size = new System.Drawing.Size(32, 16);
+            this.NumLabel2.TabIndex = 37;
+            this.NumLabel2.Text = "null";
+            // 
+            // NumLabel1
+            // 
+            this.NumLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.NumLabel1.AutoSize = true;
+            this.NumLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NumLabel1.Location = new System.Drawing.Point(179, 407);
+            this.NumLabel1.Name = "NumLabel1";
+            this.NumLabel1.Size = new System.Drawing.Size(32, 16);
+            this.NumLabel1.TabIndex = 38;
+            this.NumLabel1.Text = "null";
+            // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -455,6 +479,8 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1411, 585);
+            this.Controls.Add(this.NumLabel1);
+            this.Controls.Add(this.NumLabel2);
             this.Controls.Add(this.ResetButton);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.AppStatus);
@@ -486,6 +512,7 @@
             this.Name = "Dashboard";
             this.Text = "GRC Clinical Genetics Dashboard";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Dashboard_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.AHSLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Bar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ApplicationListTableView)).EndInit();
@@ -522,5 +549,7 @@
         private System.Windows.Forms.ComboBox AppStatus;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button ResetButton;
+        private System.Windows.Forms.Label NumLabel2;
+        private System.Windows.Forms.Label NumLabel1;
     }
 }

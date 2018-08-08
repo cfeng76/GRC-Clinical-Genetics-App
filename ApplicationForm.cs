@@ -84,7 +84,6 @@ namespace GRC_Clinical_Genetics_Application
         private string subtype;
         private string additional;
         #endregion
-
         ApplicationFormClass app = new ApplicationFormClass();
         Connections formConnection = new Connections();
         const int buttonWidth = 95;
@@ -199,6 +198,7 @@ namespace GRC_Clinical_Genetics_Application
             }
             if (finalized)
             {
+                GeneWarningLabel.Visible = false;
                 foreach (Control c in this.Controls)
                 {
                     if (c is TextBox)
@@ -221,13 +221,6 @@ namespace GRC_Clinical_Genetics_Application
         #region CONTROL HANDLERS
         private void PHNTextBox_KeyPress(object sender, KeyPressEventArgs e){
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)){
-                e.Handled = true;
-            }
-        }
-        private void ReferenceNumberTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
                 e.Handled = true;
             }
         }
@@ -356,7 +349,7 @@ namespace GRC_Clinical_Genetics_Application
                     MessageBox.Show("Patient " + firstName + " " + lastName + " has been created!");
                 }
 
-                if (MessageBox.Show("Are you sure you want to finalize this application? You will not be able to make any more changes to this application if you proceed.",
+                if (MessageBox.Show("Once an application has been finalized, it will be sent to the GRC for review. You will not be able to make any further edits or upload documents to this application. Please confirm that you would like to proceed.",
                         "Finalize application",
                           MessageBoxButtons.YesNo,
                           MessageBoxIcon.Information) == DialogResult.No){
@@ -378,7 +371,7 @@ namespace GRC_Clinical_Genetics_Application
         {
             if (finalized)
             {
-                if (MessageBox.Show("Submitting this application will generate a GRC ID and will be open for review. Do you wish to proceed?",
+                if (MessageBox.Show("Once an application has been submitted, a GRC number will be created and your application will be sent to the GRC for review. You will not be able to make any further edits or upload documents to this application. Please confirm that you would like to proceed.",
                          "Submit application",
                           MessageBoxButtons.YesNo,
                           MessageBoxIcon.Information) == DialogResult.No)
@@ -877,7 +870,7 @@ namespace GRC_Clinical_Genetics_Application
             {
                 MessageBox.Show("Application Saved!");
             }
-            else if (!loadExisting) 
+            else if (!loadExisting && !saved && !deleted && !finalized)
             {
                 if (MessageBox.Show("Your unsaved changes will be lost, do you want to exit?",
                        "Exit application",

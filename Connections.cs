@@ -9,7 +9,7 @@ using System.Configuration;
 
 namespace GRC_Clinical_Genetics_Application
 {
-    class Connections
+    class Connections : IDisposable
     {
         public SqlConnection GRC_Connection = new SqlConnection("Server=WSSQLC011N02\\TSTINST01;database=GRC;integrated security=true;");
         private string sConnection = Properties.Settings.Default.GRCConnectionString;
@@ -17,7 +17,10 @@ namespace GRC_Clinical_Genetics_Application
         {
             //establish connection
         }
+        public void Dispose()
+        {
 
+        }
         public SqlCommand LoginCommand(string user)
         {
             SqlCommand loginCommand = new SqlCommand("Select [login], [password], [PwdReset], [ID] from [GRC].[dbo].[Employees] where [login]='" + user + "' ", GRC_Connection);
@@ -60,8 +63,8 @@ namespace GRC_Clinical_Genetics_Application
         }
 
         internal SqlDataAdapter GetPTLL(string clinicalSpecialty)
-        {   //ADD: and isPreapproved = 1
-            SqlDataAdapter ptll = new SqlDataAdapter("SELECT distinct [Product Name] FROM [GRC].[dbo].[Products], [GRC].[dbo].[Suppliers], [GRC].[dbo].[CBO Test Types] where Products.[Supplier IDs] = Suppliers.ID and Products.TypeID = [CBO Test Types].ID and Discontinued = 0 and [Test Type  Description] = '" + clinicalSpecialty + "' order by [Product Name]", GRC_Connection);
+        {   
+            SqlDataAdapter ptll = new SqlDataAdapter("SELECT distinct [Product Name] FROM [GRC].[dbo].[Products], [GRC].[dbo].[Suppliers], [GRC].[dbo].[CBO Test Types] where Products.[Supplier IDs] = Suppliers.ID and Products.TypeID = [CBO Test Types].ID and Discontinued = 0 and isPreapproved = 1 and [Test Type  Description] = '" + clinicalSpecialty + "' order by [Product Name]", GRC_Connection);
             return ptll;
         }
         internal SqlDataAdapter UpdateLabMethodList(int category, string clinicalSpecialty, string ptllTest)
@@ -161,7 +164,7 @@ namespace GRC_Clinical_Genetics_Application
 
         internal SqlCommand GenerateAppIDCommand(int employeeID)
         {
-            SqlCommand appIDCmd = new SqlCommand("insert into [GRC].dbo.Applications ([Employee ID]) values (" + employeeID + ")", GRC_Connection);
+            SqlCommand appIDCmd = new SqlCommand("insert into [GRC].dbo.Applications ([Applications Date], [Employee ID]) values (Convert(VARCHAR(10), GETDATE(), 126), " + employeeID + ")", GRC_Connection);
             return appIDCmd;
         }
 
@@ -191,7 +194,7 @@ namespace GRC_Clinical_Genetics_Application
 
         internal SqlDataAdapter GetContactList(int empID)
         {
-            SqlDataAdapter contactList = new SqlDataAdapter("SELECT [First Name] + ' ' + [Last Name] as 'Clinical Contact' FROM [GRC].[dbo].[Employees], [GRC].[dbo].[Employee Privileges] where Employees.ID = [Employee Privileges].[Employee ID] and [Clinical GRC App] = 1 order by CASE when [Employee ID] = '" + empID + "' THEN 1 ELSE 2 end", GRC_Connection);
+            SqlDataAdapter contactList = new SqlDataAdapter("SELECT [First Name] + ' ' + [Last Name] as 'Clinical Contact' FROM [GRC].[dbo].[Employees], [GRC].[dbo].[Employee Privileges] PRIV where Employees.ID = PRIV.[Employee ID] and PRIV.[Privilege ID] = 6 order by [First Name]", GRC_Connection);
             return contactList;
         }
         internal SqlDataAdapter GetClinicalSpecialtyList()
@@ -218,7 +221,7 @@ namespace GRC_Clinical_Genetics_Application
 
         public SqlDataAdapter getDefaultDatatable(int id)
         {   
-            SqlDataAdapter dataTable = new SqlDataAdapter("SELECT [Applications ID], APP.[GRC ID], APP.[Genetics ID], ASTAT.[Status Name] as 'App Status', Case when APP.[GRC ID] IS NULL then '' else OSTAT.[Status Name] end as 'GRC Status', PAT.[Last Name] + ', ' + PAT.[First Name] as 'Patient', PAT.[Personal Health Number] as 'PHN', CASE when APP.[IsUrgent] = 1 then 'Yes' else 'No' end as 'Is Urgent?', CONVERT(VARCHAR(10), [Applications Date], 126) as 'Application Submission Date', CASE O.[Status ID] when 0 then Convert(VARCHAR(10), O.[Received Date], 126) when 17 then Convert(VARCHAR(10), O.[Appeal Notification Date], 126) when 14 then Convert(VARCHAR(10), O.[Approved Notification Date], 126) when 15 then Convert(VARCHAR(10), O.[Declined Notification Date], 126) when 18 then Convert(VARCHAR(10), O.[ReSubmission Notification Date], 126) when 2 then Convert(VARCHAR(10), O.[Shipped Date], 126) when 16 then Convert(VARCHAR(10), O.[Withdraw Notification Date], 126) end as 'GRC Status Date' , DATEDIFF(DAY, O.[Approved Notification Date], GETDATE()) as 'Days after approved' , EMP.[First Name] + ' ' + EMP.[Last Name] as 'Submitted by' FROM [GRC].[dbo].Applications APP left join [GRC].[dbo].[Orders] O on O.[Order ID] = APP.[Order ID] left join [GRC].[dbo].employees EMP on EMP.ID = APP.[Employee ID] left join [GRC].dbo.[CBO Application Status] ASTAT on ASTAT.ID = APP.[Application Status ID] left join [GRC].[dbo].[Orders Status] OSTAT on OSTAT.[Status ID] = APP.[Order Status ID] left join [GRC].[dbo].Patients PAT on PAT.ID = APP.[Patient ID] where APP.[Patient ID] is not null and APP.[Employee ID] = '" + id + "'", GRC_Connection);
+            SqlDataAdapter dataTable = new SqlDataAdapter("SELECT [Applications ID], APP.[GRC ID], APP.[Genetics ID], ASTAT.[Status Name] as 'App Status', Case when APP.[GRC ID] IS NULL then '' else OSTAT.[Status Name] end as 'GRC Status', PAT.[Last Name] + ', ' + PAT.[First Name] as 'Patient', PAT.[Personal Health Number] as 'PHN', CASE when APP.[IsUrgent] = 1 then 'Yes' else 'No' end as 'Is Urgent?', CONVERT(VARCHAR(10), [Finalized Date], 126) as 'Application Finalized Date', CASE O.[Status ID] when 0 then Convert(VARCHAR(10), O.[Received Date], 126) when 17 then Convert(VARCHAR(10), O.[Appeal Notification Date], 126) when 14 then Convert(VARCHAR(10), O.[Approved Notification Date], 126) when 15 then Convert(VARCHAR(10), O.[Declined Notification Date], 126) when 18 then Convert(VARCHAR(10), O.[ReSubmission Notification Date], 126) when 2 then Convert(VARCHAR(10), O.[Shipped Date], 126) when 16 then Convert(VARCHAR(10), O.[Withdraw Notification Date], 126) end as 'GRC Status Date' , DATEDIFF(DAY, O.[Approved Notification Date], GETDATE()) as 'Days after approved' , EMP.[First Name] + ' ' + EMP.[Last Name] as 'Created by' FROM [GRC].[dbo].Applications APP left join [GRC].[dbo].[Orders] O on O.[Order ID] = APP.[Order ID] left join [GRC].[dbo].employees EMP on EMP.ID = APP.[Employee ID] left join [GRC].dbo.[CBO Application Status] ASTAT on ASTAT.ID = APP.[Application Status ID] left join [GRC].[dbo].[Orders Status] OSTAT on OSTAT.[Status ID] = APP.[Order Status ID] left join [GRC].[dbo].Patients PAT on PAT.ID = APP.[Patient ID] where APP.[Patient ID] is not null and APP.[Employee ID] = '" + id + "'", GRC_Connection);
             return dataTable;
         }
 
@@ -304,12 +307,13 @@ namespace GRC_Clinical_Genetics_Application
             string newTestReq, string newPrefMethod, string newPrefLab, string famHistExpl, string ethRiskExpl, string otherTstExpl, string otherRationaleExpl,
             bool familyHistory, bool ethnicityRisk, bool otherTesting, bool otherRationale, string additional, bool[] rationale)
         {
-            string date = "Convert(VARCHAR(10), GETDATE(), 126)";
-            if (statusID == 1)
-            {
-                date = "null";
-            }
-            SqlCommand app = new SqlCommand("update [GRC].[dbo].[Applications] set [Applications Date] = " + date + ", [Patient Care Provider ID] = " + 
+            string applicationDate = "Convert(VARCHAR(10), GETDATE(), 126)";
+            string finalizeDate = (statusID == 2) ? applicationDate : "null";
+            //if (statusID == 1)
+            //{
+            //    date = "null";
+            //}
+            SqlCommand app = new SqlCommand("update [GRC].[dbo].[Applications] set [Finalized Date] = " + finalizeDate +", [Application Status Date] = " + applicationDate + ", [Patient Care Provider ID] = " + 
                 physicianID + ", [PCP Contact ID Primary] = '" + primaryContactID + "', [PCP Contact ID Alternate] = '" + secondaryContactID + "', [Patient ID] = " + 
                 patientID + ", [Patient Specimen Type ID] = '" + sampleID + "', [IsUrgent] = '" + isUrgent + "', [Urgent Other Reasons] = '" + urgentExpl + "', [IsPatientClinicallyAffected] = '" + 
                 v1[0] + "', [IsFamilyMutation] = '" + v1[1] + "', [IsPrenatalTesting] = '" + v1[2] + "', [IsFetalPostmortemTest] = '" + v1[3] + "', [IsOtherReasonForTesting] = '" + 
@@ -342,9 +346,9 @@ namespace GRC_Clinical_Genetics_Application
             return cmd;
         }
 
-        internal SqlCommand CreateOrder(string GRC_ID, int employeeID, int labID, int physicianID, int primaryContactID, int patientID, int sampleID, bool v1, int urgentID, string urgentReasons, bool clinicallyAffected, bool prenatal, bool postmortem, bool familyMutation, bool otherReason, int otherReasonID, int testID, int statusID)
+        internal SqlCommand CreateOrder(string GRC_ID, int employeeID, int labID, int physicianID, int primaryContactID, int patientID, int sampleID, bool v1, int urgentID, string urgentReasons, bool clinicallyAffected, bool prenatal, bool postmortem, bool familyMutation, bool otherReason, int otherReasonID, int testID, int statusID, int appID)
         {
-            return new SqlCommand("insert into [GRC].[dbo].[Orders] ([Received Date], [GRC ID], [GRC Coordinator ID], [Employee ID], [Lab ID],[Patient Care Provider ID], [Patient Care Provider Contact ID], [Patient ID], [Patient Specimen Type ID], [IsUrgent], [Urgent Reason], [Urgent Other Reasons],[IsPatientClinicallyAffected], [IsFetalTesting], [IsFetalPostmortemTest],[IsFamilialMutation],[IsOtherReasonForTesting],[Reason For Testing ID],[IsApplicationCompleted],[Test Requested ID],[Status ID]) values (Convert(VARCHAR(10), GETDATE(), 126), '" + GRC_ID + "', 22, " + employeeID + ", " + labID + ", " + physicianID + ", " + primaryContactID + ", " + patientID + ", " + sampleID + ", '" + v1 + "', " + urgentID + ", '" + urgentReasons + "', '" + clinicallyAffected + "', '" + prenatal + "', '" + postmortem + "', '" + familyMutation + "', '" + otherReason + "', " + otherReasonID + ", 1, " + testID + ", " + statusID + " )", GRC_Connection);
+            return new SqlCommand("insert into [GRC].[dbo].[Orders] ([Received Date], [GRC ID], [GRC Coordinator ID], [Employee ID], [Lab ID],[Patient Care Provider ID], [Patient Care Provider Contact ID], [Patient ID], [Patient Specimen Type ID], [IsUrgent], [Urgent Reason], [Urgent Other Reasons],[IsPatientClinicallyAffected], [IsFetalTesting], [IsFetalPostmortemTest],[IsFamilialMutation],[IsOtherReasonForTesting],[Reason For Testing ID],[IsApplicationCompleted],[Test Requested ID],[Status ID], [Applications_ID]) values (Convert(VARCHAR(10), GETDATE(), 126), '" + GRC_ID + "', 22, " + employeeID + ", " + labID + ", " + physicianID + ", " + primaryContactID + ", " + patientID + ", " + sampleID + ", '" + v1 + "', " + urgentID + ", '" + urgentReasons + "', '" + clinicallyAffected + "', '" + prenatal + "', '" + postmortem + "', '" + familyMutation + "', '" + otherReason + "', " + otherReasonID + ", 1, " + testID + ", " + statusID + ", " + appID + ")", GRC_Connection);
             // Convert(VARCHAR(10), GETDATE(), 126), " + GRC_ID + ", 22, " + employeeID + "," + labID + "," + physicianID + "," + primaryContactID + "," + patientID + "," + sampleID + "," + v1 + "," + urgentID + ", '" + urgentReasons + "'," + clinicallyAffected + "," + prenatal + "," + postmortem + "," + familyMutation + "," + otherReason + "," + otherReasonID + ", 1, " + testID + "," + statusID
         }
         internal SqlCommand SubmittedAppUpdate(int appID, string GRC_ID)
@@ -382,3 +386,4 @@ namespace GRC_Clinical_Genetics_Application
 //              .datasource = dt;
 // SqlCommand cmd = new SqlCommand("", GRC_Connection);
 //  return cmd;
+//FOR GRC DASHBOARD : SELECT[GRC ID], [Status Name] as 'Status', [Patients].[Last Name] + ', ' + [Patients].[First Name] as 'Patient', [Patients].[Personal Health Number] as 'PHN',  CONVERT(VARCHAR(10), Patients.DOB , 126) as 'Date of Birth', CASE when[IsUrgent] = 1 then 'Yes' else 'No' end as 'Is Urgent?', CASE when Orders.[Paperwork Received Date] IS NULL then 'No' else 'Yes' end as 'Paperwork Received?', [Received Date] as 'Application Submission Date' , [Employees].[First Name] + ' ' + Employees.[Last Name] as 'Submitted by' FROM [GRC].[dbo].[Orders], [GRC].[dbo].Patients, [GRC].[dbo].[Orders Status], [GRC].[dbo].employees where [Patient ID] = [GRC].[dbo].Patients.ID and[GRC].[dbo].[Orders].[Status ID] = [GRC].[dbo].[Orders Status].[Status ID] and [Employee ID] = [GRC].[dbo].employees.ID

@@ -25,8 +25,9 @@ namespace GRC_Clinical_Genetics_Application
         private bool defaultData = true;
         private int openMetricsID = 1;
         private int urgentMetricsID = 2;
-
+        private bool logOut = false;
         DashboardClass dashboard = new DashboardClass();
+
         public Dashboard(int id)
         {
             InitializeComponent();
@@ -43,15 +44,27 @@ namespace GRC_Clinical_Genetics_Application
             DataTable dt = dashboard.UpdateAppTable(defaultData);
             ApplicationListTableView.DataSource = dt;
 
-            NumOpenAppsLabel.Text = NumOpenAppsLabel.Text + dashboard.UpdateMetrics(openMetricsID);
-            NumUrgentAppsLabel.Text = NumUrgentAppsLabel.Text + dashboard.UpdateMetrics(urgentMetricsID);
+            UpdateMetricLabels();
+        }
+        private void UpdateMetricLabels()
+        {
+            NumLabel1.Text = dashboard.UpdateMetrics(openMetricsID).ToString();
+            NumLabel2.Text = dashboard.UpdateMetrics(urgentMetricsID).ToString();
         }
 
         private void LogoutButton_Click(object sender, EventArgs e)
         {
-            Login logOut = new Login();
+            logOut = true;
             this.Close();
-            logOut.Show();
+            Application.Restart();
+        }
+
+        private void Dashboard_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!logOut)
+            {
+                Application.Exit();
+            }
         }
 
         //limits textbox to numbers and '-'
@@ -86,7 +99,7 @@ namespace GRC_Clinical_Genetics_Application
             ApplicationListTableView.DataSource = null;
             DataTable dt = dashboard.UpdateAppTable(defaultData, GRCNumber, GRCStatus, patientFirstName, patientLastName, personalHealthNumber, isUrgent, listAll, ApplicationStatus);
             ApplicationListTableView.DataSource = dt;
-
+            UpdateMetricLabels();
         }
 
         private void NewApplicationButton_Click(object sender, EventArgs e)
@@ -129,5 +142,6 @@ namespace GRC_Clinical_Genetics_Application
                 }
             }
         }
+
     }
 }
