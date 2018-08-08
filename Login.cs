@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,11 @@ namespace GRC_Clinical_Genetics_Application
             InitializeComponent();
         }
         LoginClass newlogin = new LoginClass();
-        
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+            this.AcceptButton = this.LoginButton;
+        }
         private void LoginButton_Click(object sender, EventArgs e)
         {
             string user = UsernameTextBox.Text;
@@ -69,5 +74,6 @@ namespace GRC_Clinical_Genetics_Application
                 db.Show();
             }
         }
+
     }
 }

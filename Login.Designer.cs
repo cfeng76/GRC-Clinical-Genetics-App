@@ -217,6 +217,7 @@
             this.MaximizeBox = false;
             this.Name = "Login";
             this.Text = "GRC Clinical Genetics";
+            this.Load += new System.EventHandler(this.Login_Load);
             ((System.ComponentModel.ISupportInitialize)(this.AHSLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
