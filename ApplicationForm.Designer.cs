@@ -39,7 +39,6 @@
             this.AlternateIDLabel = new System.Windows.Forms.Label();
             this.ExplanationAltIDLabel = new System.Windows.Forms.Label();
             this.AlternateIDExplanationTextbox = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.FirstNameTextBox = new System.Windows.Forms.TextBox();
             this.LastNameTextBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -153,6 +152,8 @@
             this.SecondSaveButton = new System.Windows.Forms.Button();
             this.SecondDeleteButton = new System.Windows.Forms.Button();
             this.GeneWarningLabel = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DemographicsBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ClinicianInformationBox)).BeginInit();
@@ -290,26 +291,15 @@
             this.AlternateIDExplanationTextbox.TabIndex = 12;
             this.AlternateIDExplanationTextbox.Visible = false;
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.Gainsboro;
-            this.label6.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(21, 140);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 15);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "Name:";
-            // 
             // FirstNameTextBox
             // 
             this.FirstNameTextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.FirstNameTextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.FirstNameTextBox.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.FirstNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.FirstNameTextBox.Location = new System.Drawing.Point(68, 139);
+            this.FirstNameTextBox.Location = new System.Drawing.Point(134, 144);
             this.FirstNameTextBox.Name = "FirstNameTextBox";
-            this.FirstNameTextBox.Size = new System.Drawing.Size(265, 20);
+            this.FirstNameTextBox.Size = new System.Drawing.Size(199, 20);
             this.FirstNameTextBox.TabIndex = 14;
             // 
             // LastNameTextBox
@@ -318,9 +308,9 @@
             this.LastNameTextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.LastNameTextBox.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.LastNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LastNameTextBox.Location = new System.Drawing.Point(339, 139);
+            this.LastNameTextBox.Location = new System.Drawing.Point(463, 144);
             this.LastNameTextBox.Name = "LastNameTextBox";
-            this.LastNameTextBox.Size = new System.Drawing.Size(263, 20);
+            this.LastNameTextBox.Size = new System.Drawing.Size(178, 20);
             this.LastNameTextBox.TabIndex = 15;
             // 
             // label7
@@ -328,7 +318,7 @@
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Gainsboro;
             this.label7.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(421, 173);
+            this.label7.Location = new System.Drawing.Point(529, 174);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(108, 15);
             this.label7.TabIndex = 16;
@@ -339,7 +329,7 @@
             // 
             this.AlternateNamesTextBox.BackColor = System.Drawing.Color.White;
             this.AlternateNamesTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.AlternateNamesTextBox.Location = new System.Drawing.Point(528, 172);
+            this.AlternateNamesTextBox.Location = new System.Drawing.Point(643, 173);
             this.AlternateNamesTextBox.Name = "AlternateNamesTextBox";
             this.AlternateNamesTextBox.Size = new System.Drawing.Size(198, 20);
             this.AlternateNamesTextBox.TabIndex = 17;
@@ -361,7 +351,7 @@
             this.label9.AutoSize = true;
             this.label9.BackColor = System.Drawing.Color.Gainsboro;
             this.label9.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(21, 173);
+            this.label9.Location = new System.Drawing.Point(21, 180);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(75, 15);
             this.label9.TabIndex = 19;
@@ -372,10 +362,10 @@
             this.PostalCodeTextBox.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.PostalCodeTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PostalCodeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.PostalCodeTextBox.Location = new System.Drawing.Point(102, 172);
+            this.PostalCodeTextBox.Location = new System.Drawing.Point(102, 179);
             this.PostalCodeTextBox.MaxLength = 7;
             this.PostalCodeTextBox.Name = "PostalCodeTextBox";
-            this.PostalCodeTextBox.Size = new System.Drawing.Size(102, 20);
+            this.PostalCodeTextBox.Size = new System.Drawing.Size(117, 20);
             this.PostalCodeTextBox.TabIndex = 20;
             // 
             // label10
@@ -700,6 +690,7 @@
             // 
             this.SubmitButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.SubmitButton.BackColor = System.Drawing.SystemColors.Highlight;
+            this.SubmitButton.Enabled = false;
             this.SubmitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SubmitButton.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SubmitButton.Location = new System.Drawing.Point(524, 943);
@@ -725,7 +716,7 @@
             this.TestContinuedBackGround.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TestContinuedBackGround.Location = new System.Drawing.Point(12, 999);
             this.TestContinuedBackGround.Name = "TestContinuedBackGround";
-            this.TestContinuedBackGround.Size = new System.Drawing.Size(704, 512);
+            this.TestContinuedBackGround.Size = new System.Drawing.Size(687, 512);
             this.TestContinuedBackGround.TabIndex = 65;
             this.TestContinuedBackGround.TabStop = false;
             this.TestContinuedBackGround.Visible = false;
@@ -934,7 +925,7 @@
             this.AdditionalDetailsTextBox.Location = new System.Drawing.Point(23, 1362);
             this.AdditionalDetailsTextBox.Multiline = true;
             this.AdditionalDetailsTextBox.Name = "AdditionalDetailsTextBox";
-            this.AdditionalDetailsTextBox.Size = new System.Drawing.Size(682, 90);
+            this.AdditionalDetailsTextBox.Size = new System.Drawing.Size(665, 90);
             this.AdditionalDetailsTextBox.TabIndex = 86;
             this.AdditionalDetailsTextBox.Visible = false;
             this.AdditionalDetailsTextBox.WordWrap = false;
@@ -966,12 +957,13 @@
             this.NewPatientButton.FlatAppearance.BorderColor = System.Drawing.Color.SpringGreen;
             this.NewPatientButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.NewPatientButton.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NewPatientButton.Location = new System.Drawing.Point(641, 134);
+            this.NewPatientButton.Location = new System.Drawing.Point(695, 138);
             this.NewPatientButton.Name = "NewPatientButton";
             this.NewPatientButton.Size = new System.Drawing.Size(85, 26);
             this.NewPatientButton.TabIndex = 98;
             this.NewPatientButton.Text = "New Patient?";
             this.NewPatientButton.UseVisualStyleBackColor = false;
+            this.NewPatientButton.Visible = false;
             this.NewPatientButton.Click += new System.EventHandler(this.NewPatientButton_Click);
             // 
             // OrderingPhysicianTextBox
@@ -1332,9 +1324,9 @@
             this.GenderComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.GenderComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.GenderComboBox.FormattingEnabled = true;
-            this.GenderComboBox.Location = new System.Drawing.Point(280, 171);
+            this.GenderComboBox.Location = new System.Drawing.Point(290, 178);
             this.GenderComboBox.Name = "GenderComboBox";
-            this.GenderComboBox.Size = new System.Drawing.Size(130, 21);
+            this.GenderComboBox.Size = new System.Drawing.Size(142, 21);
             this.GenderComboBox.TabIndex = 144;
             // 
             // label20
@@ -1342,7 +1334,7 @@
             this.label20.AutoSize = true;
             this.label20.BackColor = System.Drawing.Color.Gainsboro;
             this.label20.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(225, 173);
+            this.label20.Location = new System.Drawing.Point(235, 180);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(49, 15);
             this.label20.TabIndex = 145;
@@ -1575,6 +1567,7 @@
             this.SecondSubmitButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.SecondSubmitButton.BackColor = System.Drawing.SystemColors.Highlight;
+            this.SecondSubmitButton.Enabled = false;
             this.SecondSubmitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SecondSubmitButton.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SecondSubmitButton.Location = new System.Drawing.Point(524, 1458);
@@ -1630,6 +1623,28 @@
             this.GeneWarningLabel.TabIndex = 170;
             this.GeneWarningLabel.Text = "*Gene(s) field is only required if \r\ntargeted variant testing is requested.";
             // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.BackColor = System.Drawing.Color.Gainsboro;
+            this.label22.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(350, 145);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(107, 15);
+            this.label22.TabIndex = 171;
+            this.label22.Text = "Patient Last Name:";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.BackColor = System.Drawing.Color.Gainsboro;
+            this.label26.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(21, 145);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(110, 15);
+            this.label26.TabIndex = 172;
+            this.label26.Text = "Patient First Name:";
+            // 
             // ApplicationForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1637,6 +1652,8 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(871, 691);
+            this.Controls.Add(this.label26);
+            this.Controls.Add(this.label22);
             this.Controls.Add(this.GeneWarningLabel);
             this.Controls.Add(this.SecondDeleteButton);
             this.Controls.Add(this.SecondSaveButton);
@@ -1747,7 +1764,6 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.LastNameTextBox);
             this.Controls.Add(this.FirstNameTextBox);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.AlternateIDExplanationTextbox);
             this.Controls.Add(this.ExplanationAltIDLabel);
             this.Controls.Add(this.AlternateIDLabel);
@@ -1792,7 +1808,6 @@
         private System.Windows.Forms.Label AlternateIDLabel;
         private System.Windows.Forms.Label ExplanationAltIDLabel;
         private System.Windows.Forms.TextBox AlternateIDExplanationTextbox;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox FirstNameTextBox;
         private System.Windows.Forms.TextBox LastNameTextBox;
         private System.Windows.Forms.Label label7;
@@ -1906,5 +1921,7 @@
         private System.Windows.Forms.Button SecondSaveButton;
         private System.Windows.Forms.Button SecondDeleteButton;
         private System.Windows.Forms.Label GeneWarningLabel;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label26;
     }
 }

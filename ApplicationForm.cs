@@ -248,6 +248,10 @@ namespace GRC_Clinical_Genetics_Application
         private void OrderingPhysicianTextBox_Leave(object sender, EventArgs e)
         {
             orderingPhysician = OrderingPhysicianTextBox.Text;
+            if (!orderingPhysician.Contains("("))
+            {
+                return;
+            }
             app.UpdatePhysician(orderingPhysician);
         }
         private void SampleTypeComboBox_SelectionChangeCommitted(object sender, EventArgs e)
@@ -355,7 +359,7 @@ namespace GRC_Clinical_Genetics_Application
                           MessageBoxIcon.Information) == DialogResult.No){
                         return;
                 }
-
+                app.UpdatePhysician(orderingPhysician);
                 finalized = true;
                 app.SetTestID(PTLLTest, labName);
                 app.CreateNewApplication(PHN, primaryContact, secondaryContact, isUrgent, urgentExpl, reasonCheckboxes, 
@@ -388,11 +392,17 @@ namespace GRC_Clinical_Genetics_Application
         private void SaveButton_Click(object sender, EventArgs e)
         {
             CaptureInformation();
-            if(PHN == "" || orderingPhysician == "")
+            if (PHN == "" || orderingPhysician == "")
             {
                 MessageBox.Show("Please enter patient demographics and or the Ordering Physician before saving!");
                 return;
             }
+            if (!orderingPhysician.Contains("("))
+            {
+                MessageBox.Show("Please Enter a valid Physician. (Search by last name)");
+                return;
+            }
+            app.UpdatePhysician(orderingPhysician);
             deleted = false;
             saved = true;
             finalized = false;
@@ -720,7 +730,6 @@ namespace GRC_Clinical_Genetics_Application
             geneticsID = ReferenceNumberTextBox.Text;
 
             orderingPhysician = OrderingPhysicianTextBox.Text;
-            app.UpdatePhysician(orderingPhysician);
             drv = PrimaryClinicalContactComboBox.SelectedItem as DataRowView;
             primaryContact = (drv != null) ? drv.Row["Clinical Contact"] as string : "";
             drv = AltClinicalContactComboBox.SelectedItem as DataRowView;

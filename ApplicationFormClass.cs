@@ -205,10 +205,16 @@ namespace GRC_Clinical_Genetics_Application
 
         internal bool OrderPhysicianFieldEmpty(string orderPhys)
         {
-            if(orderPhys != "")
+            if (!orderPhys.Contains("("))
+            {
+                MessageBox.Show("Please Enter a valid Physician. (Search by last name)");
+                return true;
+            }
+            if (orderPhys != "")
             {
                 return false;
-            }else{
+            }else
+            {
                 MessageBox.Show("Please enter a physician name.");
                 return true;
             }
